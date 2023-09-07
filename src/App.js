@@ -33,11 +33,13 @@ function App() {
 			<h1>{isOnline && 'Online'}</h1>
 			<h1>{!isOnline && 'Offline'}</h1>
 
-			{btns.map(btn => (
-				<Button key={nanoid()} titleForMyBtn={btn}>
-					Hello
-				</Button>
-			))}
+			<Button $bg='blue' $color='white'>
+				Login
+			</Button>
+			<Button $bg='tomato'>Logout</Button>
+			<Button $bg='teal' $color='yellow'>
+				Click me!
+			</Button>
 
 			<Section title='Movies' data={movies} />
 			<Section title='Goods' data={goodsData} />

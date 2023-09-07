@@ -1,17 +1,20 @@
 import React from 'react'
 import styles from './Section.module.scss'
 import PropTypes from 'prop-types'
+import { StyledItem, StyledTitleSection, StyledWrapper, TestBox } from './Section.styled'
+
 export const Section = ({ title = 'Default value', data = [] }) => {
 	return (
 		<section>
-			<h1>{title}</h1>
-			<ul className={styles.wrapper}>
+			<StyledTitleSection $color='green'>{title}</StyledTitleSection>
+			<StyledWrapper>
 				{data.map((item, idx) => (
-					<li style={{ backgroundColor: idx % 2 === 0 ? 'teal' : 'tomato' }} className={styles.item} key={item.id}>
+					<StyledItem $idx={idx} key={item.id}>
 						{item.title}
-					</li>
+					</StyledItem>
 				))}
-			</ul>
+			</StyledWrapper>
+			<TestBox $bg='teal' />
 		</section>
 	)
 }
