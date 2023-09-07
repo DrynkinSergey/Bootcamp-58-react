@@ -1,5 +1,5 @@
 import React from 'react'
-
+import PropTypes from 'prop-types'
 export const Modal = props => {
 	return (
 		<div>
@@ -9,4 +9,8 @@ export const Modal = props => {
 			<hr />
 		</div>
 	)
+}
+
+Modal.propTypes = {
+	children: PropTypes.node,
 }

@@ -23,7 +23,7 @@ function App() {
 	const isOnline = false
 	return (
 		<div className='App'>
-			<Header />
+			<Header title='React' count={21.2332} />
 			<hr />
 			<h1>{isOnline ? 'Hello my friend' : 'Lets login!'}</h1>
 			{isOnline && <h1>Online</h1>}
