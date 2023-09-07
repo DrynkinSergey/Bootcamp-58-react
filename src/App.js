@@ -4,6 +4,7 @@ import { Header } from './components/Header/Header'
 import { Section } from './components/Section/Section'
 import { Modal } from './components/Modal/Modal'
 import { Flex } from './styles/GlobalStyles'
+import { styled } from 'styled-components'
 
 function App() {
 	const movies = [
@@ -35,6 +36,10 @@ function App() {
 			<h1>{!isOnline && 'Offline'}</h1>
 
 			<Flex $direction='column' $items='center' $justify='center' $mh='100vh'>
+				<Title>React is AWESOME</Title>
+			</Flex>
+
+			<Flex $direction='column' $items='center' $justify='center' $mh='100vh'>
 				<Flex>
 					<Button $bg='blue' $color='white'>
 						Login
@@ -63,3 +68,9 @@ function App() {
 }
 
 export default App
+
+const Title = styled.h1`
+	font-size: calc((1vh + 1vw) * 3.2);
+	border: 10px solid black;
+	padding: 20px;
+`
