@@ -3,6 +3,7 @@ import { Button } from './components/Button'
 import { Header } from './components/Header/Header'
 import { Section } from './components/Section/Section'
 import { Modal } from './components/Modal/Modal'
+import { Flex } from './styles/GlobalStyles'
 
 function App() {
 	const movies = [
@@ -33,13 +34,17 @@ function App() {
 			<h1>{isOnline && 'Online'}</h1>
 			<h1>{!isOnline && 'Offline'}</h1>
 
-			<Button $bg='blue' $color='white'>
-				Login
-			</Button>
-			<Button $bg='tomato'>Logout</Button>
-			<Button $bg='teal' $color='yellow'>
-				Click me!
-			</Button>
+			<Flex $direction='column' $items='center' $justify='center' $mh='100vh'>
+				<Flex>
+					<Button $bg='blue' $color='white'>
+						Login
+					</Button>
+					<Button $bg='tomato'>Logout</Button>
+					<Button $bg='teal' $color='yellow'>
+						Click me!
+					</Button>
+				</Flex>
+			</Flex>
 
 			<Section title='Movies' data={movies} />
 			<Section title='Goods' data={goodsData} />
@@ -52,13 +57,6 @@ function App() {
 			<Modal>
 				Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nihil in maiores ut, quam asperiores aliquam ducimus
 				nulla voluptatibus ipsum cumque porro rerum molestias earum voluptatum illum quibusdam cum sit culpa?
-			</Modal>
-
-			<Modal>
-				<img
-					src='https://bs-uploads.toptal.io/blackfish-uploads/components/blog_post_page/content/cover_image_file/cover_image/1279225/regular_1708x683_0521-react-redux-and-immutablejs-Waldek_Newsletter-993b50f4ae56e9ee6e024a309c23a6c4.png'
-					alt='react'
-				/>
 			</Modal>
 		</div>
 	)

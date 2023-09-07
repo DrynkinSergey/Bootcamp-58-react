@@ -18,14 +18,15 @@ import { styled } from 'styled-components'
 export const StyledItem = styled.li`
 	background-color: ${props => (props.$idx % 2 === 0 ? 'teal' : 'tomato')};
 	color: white;
-	padding: 10px 5px;
+	padding: ${({ theme }) => theme.spacing(3)} ${({ theme }) => theme.spacing(4)};
 	border-radius: 4px;
-	box-shadow: 2px 2px 1px 1px gray;
+	box-shadow: ${props => props.theme.shadows.default};
 `
+
 export const StyledWrapper = styled.ul`
 	display: flex;
 	flex-direction: column;
-	gap: 15px;
+	gap: ${({ theme }) => theme.spacing(4, 3)};
 	border: 1px solid black;
 	padding: 20px 10px;
 	list-style: none;

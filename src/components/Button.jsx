@@ -7,8 +7,9 @@ export const Button = props => {
 
 export const StyledButton = styled.button`
 	border: none;
-	box-shadow: 2px 2px 1px 2px gray;
-	background-color: ${props => props.$bg};
+	box-shadow: ${({ theme }) => theme.shadows.xl};
+	/* background-color: ${props => props.$bg}; */
+	background-color: ${props => props.theme.colors.accent};
 	font-size: 2rem;
 	color: ${props => props.$color || 'black'};
 	padding: 8px 15px;
