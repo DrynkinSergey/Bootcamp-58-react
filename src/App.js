@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid'
 import { Button } from './components/Button'
-import { Header } from './components/Header'
-import { Section } from './components/Section'
+import { Header } from './components/Header/Header'
+import { Section } from './components/Section/Section'
 import { Modal } from './components/Modal/Modal'
 
 function App() {
@@ -25,9 +25,11 @@ function App() {
 		<div className='App'>
 			<Header title='React' count={21.2332} />
 			<hr />
-			<h1>{isOnline ? 'Hello my friend' : 'Lets login!'}</h1>
+			<h1 className='title'>{isOnline ? 'Hello my friend' : 'Lets login!'}</h1>
 			{isOnline && <h1>Online</h1>}
-
+			<h2 className='title'>
+				<span>EXAMPLE</span>
+			</h2>
 			<h1>{isOnline && 'Online'}</h1>
 			<h1>{!isOnline && 'Offline'}</h1>
 

@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
-
+import styles from './Header.module.scss'
 export const Header = props => {
 	const { title = 'Default', count } = props
 	return (
-		<header>
-			<h1>{title}</h1>
+		<header className='header'>
+			<h1 className={styles.title}>{title}</h1>
 			{count.toFixed(2)}
 		</header>
 	)
