@@ -4,7 +4,7 @@ export const GlobalStyles = createGlobalStyle`
 body{
 	//Підключення гугл шрифта
 	
-	@import url('https://fonts.googleapis.com/css2?family=Coming+Soon&family=Montserrat:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+	
   background-color: ${({ theme }) => theme.backgrounds.main};
 	// Використання
 	font-family: 'Coming Soon', cursive;;

@@ -1,16 +1,18 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-export const Modal = props => {
+import { CloseButton, ModalContent, ModalWrapper } from './Modal.styled'
+
+const Modal = ({ children }) => {
 	return (
-		<div>
-			<h1>Modal</h1>
-			<hr />
-			{props.children}
-			<hr />
-		</div>
+		<ModalWrapper>
+			<ModalContent>
+				<>
+					<h1>Modal</h1>
+					<hr />
+				</>
+				<CloseButton>×</CloseButton>
+				{children}
+			</ModalContent>
+		</ModalWrapper>
 	)
 }
 
-Modal.propTypes = {
-	children: PropTypes.node,
-}
+export default Modal
