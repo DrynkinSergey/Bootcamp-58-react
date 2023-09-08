@@ -1,7 +1,7 @@
 import usersData from '../assets/users.json'
-import React from 'react'
 import { StyledInput, StyledTodo, StyledTodoList } from './TodoList/TodoList.styled'
 import { Flex, StyledButton } from './Counter/Counter.styled'
+import React, { Component } from 'react'
 
 export class Test extends React.Component {
 	state = {

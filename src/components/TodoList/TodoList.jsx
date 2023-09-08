@@ -4,6 +4,7 @@ import todosData from './../../assets/todos.json'
 import { Flex } from '../../styles/GlobalStyles'
 import React from 'react'
 import { nanoid } from 'nanoid'
+import API, { sum } from '../test'
 
 export class TodoList extends React.Component {
 	state = {
@@ -14,6 +15,7 @@ export class TodoList extends React.Component {
 		// const newTodos = this.state.todos.filter(item => item.id !== id)
 		// console.log(newTodos)
 		// this.setState(prev => ({ todos: newTodos }))
+		API.sum()
 		this.setState(prev => ({ todos: prev.todos.filter(item => item.id !== id) }))
 	}
 
