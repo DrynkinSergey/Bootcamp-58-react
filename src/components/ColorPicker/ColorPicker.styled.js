@@ -6,6 +6,7 @@ export const StyledBackgroundTheme = styled.div`
 	height: 100vh;
 	transition: background-color 0.5s linear;
 	width: 100vw;
+	background-color: ${props => props.$bg};
 `
 export const StyledColorPalette = styled.div`
 	text-align: center;
@@ -17,6 +18,7 @@ export const StyledColor = styled.li`
 	border-radius: 8px;
 	cursor: pointer;
 	transition: all 0.5s ease;
+	background-color: ${props => props.children};
 
 	&:hover {
 		background-color: lightcyan;
