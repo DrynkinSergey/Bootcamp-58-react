@@ -9,7 +9,7 @@ const Flex = styled.div`
 
 	flex-direction: ${props => props.$direction || 'row'};
 	min-height: ${props => (props.$center ? '100vh' : 'auto')};
-	justify-content: ${props => (props.$center ? 'center' : 'space-between')};
+	justify-content: ${props => (props.$center ? 'center' : props.$justify || 'center')};
 	align-items: ${props => (props.$center ? 'center' : 'auto')};
 	gap: ${props => props.$gap || '10px'};
 `
