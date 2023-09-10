@@ -10,6 +10,7 @@ export const theme = {
 	},
 	shadows: {
 		default: '2px 1px 2px 1px gray',
+		md: '0px 0px 15px 5px teal',
 		xl: '4px 2px 3px 3px black',
 	},
 	media: {
@@ -29,7 +30,7 @@ export const darkTheme = {
 		main: 'black',
 	},
 	shadows: {
-		default: '2px 1px 2px 1px gray',
+		default: '0 0 10px 20px gray',
 		xl: '4px 2px 3px 3px black',
 	},
 	media: {
