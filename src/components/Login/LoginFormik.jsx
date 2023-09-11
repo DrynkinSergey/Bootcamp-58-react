@@ -16,31 +16,31 @@ const LoginFormik = () => {
 			onSubmit={values => console.log('Formik values ', values)}
 			initialValues={{ name: '', surname: '', email: '' }}
 		>
-			<Form>
+			<StyledForm>
 				<StyledFlex $gap='20px' $direction='column'>
 					<h1>Login Form</h1>
 					<StyledLabel>
 						First Name
 						<Field name='name' placeholder='Enter name...' />
-						<StyledErrorMessage name='name' />
+						<StyledErrorMessage component={'span'} name='name' />
 					</StyledLabel>
 					<StyledLabel>
 						Last Name
 						<Field name='surname' placeholder='Enter surname...' />
-						<StyledErrorMessage name='surname' />
+						<StyledErrorMessage component={'span'} name='surname' />
 					</StyledLabel>
 					<StyledLabel>
 						Email
 						<Field name='email' placeholder='Enter email...' />
-						<StyledErrorMessage name='email' />
+						<StyledErrorMessage component={'span'} name='email' />
 					</StyledLabel>
 					<StyledButton type='submit'>Submit</StyledButton>
 				</StyledFlex>
-			</Form>
+			</StyledForm>
 		</Formik>
 	)
 }
-const StyledForm = styled.form`
+const StyledForm = styled(Form)`
 	background-color: white;
 	padding: 10px 22px;
 	box-shadow: ${({ theme }) => theme.shadows.md};
