@@ -1,12 +1,14 @@
 import React from 'react'
 
-import { Employee } from './components/Employees/Employee'
+import Login from './components/Login/Login'
+import { StyledFlex } from './styledComponents/StyledFlex'
+import LoginFormik from './components/Login/LoginFormik'
 
 const App = () => {
 	return (
-		<>
-			<Employee />
-		</>
+		<StyledFlex $center>
+			<LoginFormik />
+		</StyledFlex>
 	)
 }
 
