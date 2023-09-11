@@ -9,6 +9,8 @@ export class Employee extends Component {
 	state = {
 		users: userData,
 		filterStr: '',
+		isAvailable: false,
+		activeSkill: 'all',
 	}
 	handleDeleteUser = id => {
 		const newUsers = this.state.users.filter(user => user.id !== id)
@@ -17,13 +19,27 @@ export class Employee extends Component {
 	handleChangeFilter = filterStr => {
 		this.setState({ filterStr })
 	}
+	handleChangeAvailable = () => {
+		this.setState(prev => ({ isAvailable: !prev.isAvailable }))
+	}
+	handleChangeSkill = activeSkill => {
+		this.setState({ activeSkill })
+	}
 
 	render() {
-		const { users, filterStr } = this.state
-		const filteredData = getFilteredData(users, filterStr)
+		const { users, activeSkill, filterStr, isAvailable } = this.state
+		const filteredData = getFilteredData(users, filterStr, isAvailable, activeSkill)
+
 		return (
 			<Wrapper>
-				<EmployeesFilter filterStr={filterStr} setFilter={this.handleChangeFilter} />
+				<EmployeesFilter
+					toggleIsAvailable={this.handleChangeAvailable}
+					isAvailable={isAvailable}
+					filterStr={filterStr}
+					setFilter={this.handleChangeFilter}
+					setActiveSkill={this.handleChangeSkill}
+					activeSkill={activeSkill}
+				/>
 				<EmployeeList users={filteredData} onDeleteUser={this.handleDeleteUser} />
 			</Wrapper>
 		)

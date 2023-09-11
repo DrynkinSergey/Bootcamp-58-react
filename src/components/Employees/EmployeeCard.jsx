@@ -2,9 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import { StyledButton } from '../Counter/Counter.styled'
 
-export const EmployeeCard = ({ id, name, email, bio, skills, onDeleteUser }) => {
+export const EmployeeCard = ({ isOpenToWork, id, name, email, bio, skills, onDeleteUser }) => {
 	return (
-		<UserCard>
+		<UserCard $openToWork={isOpenToWork}>
 			<h3>{name}</h3>
 			<h4>{email}</h4>
 			<h5>{bio}</h5>
@@ -29,7 +29,7 @@ const UserCard = styled.li`
 	border: 3px solid;
 	border-radius: 12px;
 	padding: 15px;
-	background-color: white;
+	background-color: ${props => (props.$openToWork ? 'lightgreen' : 'tomato')};
 	box-shadow: 4px 5px 2px 1px gray;
 `
 const SkillList = styled.ul`

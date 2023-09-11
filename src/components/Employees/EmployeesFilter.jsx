@@ -4,7 +4,14 @@ import { Flex } from '../../styles/GlobalStyles'
 
 const skilsList = ['all', 'react', 'angular', 'vue']
 
-export const EmployeesFilter = ({ filterStr, setFilter }) => {
+export const EmployeesFilter = ({
+	filterStr,
+	setFilter,
+	isAvailable,
+	toggleIsAvailable,
+	activeSkill,
+	setActiveSkill,
+}) => {
 	return (
 		<Filters>
 			<h2>Filters</h2>
@@ -13,14 +20,20 @@ export const EmployeesFilter = ({ filterStr, setFilter }) => {
 				<input type='text' value={filterStr} onChange={e => setFilter(e.target.value)} />
 
 				<label htmlFor='isAvailable'>
-					<input type='checkbox' id='isAvailable' />
+					<input onChange={toggleIsAvailable} checked={isAvailable} type='checkbox' id='isAvailable' />
 					<span> isAvailable</span>
 				</label>
 			</Flex>
 			<Flex $height='100px' $items='center'>
 				{skilsList.map(radioButtonName => (
 					<label key={radioButtonName}>
-						<input name='radioButtonName' type='radio' value={radioButtonName} />
+						<input
+							name='radioButtonName'
+							type='radio'
+							onChange={() => setActiveSkill(radioButtonName)}
+							checked={activeSkill === radioButtonName}
+							value={radioButtonName}
+						/>
 						<span> {radioButtonName}</span>
 					</label>
 				))}
