@@ -4,12 +4,14 @@ import { Flex } from '../../styles/GlobalStyles'
 
 const skilsList = ['all', 'react', 'angular', 'vue']
 
-export const EmployeesFilter = () => {
+export const EmployeesFilter = ({ filterStr, setFilter }) => {
 	return (
 		<Filters>
 			<h2>Filters</h2>
+
 			<Flex $height='100px' $items='center'>
-				<input type='text' />
+				<input type='text' value={filterStr} onChange={e => setFilter(e.target.value)} />
+
 				<label htmlFor='isAvailable'>
 					<input type='checkbox' id='isAvailable' />
 					<span> isAvailable</span>
