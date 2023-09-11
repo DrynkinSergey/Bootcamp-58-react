@@ -25,10 +25,7 @@ const RegisterForm = () => {
 					Age
 					<input type='number' placeholder='Enter age...' />
 				</StyledLabel>
-				<StyledLabel $display='flex'>
-					<input type='checkbox' />
-					I'm confirm this rules!
-				</StyledLabel>
+
 				<StyledLabel>
 					Choose your country
 					<select>
@@ -50,6 +47,10 @@ const RegisterForm = () => {
 				<StyledLabel>
 					Send us your letter
 					<textarea placeholder='Are you so cool today!!' />
+				</StyledLabel>
+				<StyledLabel $display='flex'>
+					<input type='checkbox' />
+					I'm confirm this rules!
 				</StyledLabel>
 				<StyledButton>Submit</StyledButton>
 			</StyledFlex>
