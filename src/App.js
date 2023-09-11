@@ -12,7 +12,6 @@ const App = () => {
 				<LoginHookForm />
 				<LoginFormik />
 			</StyledFlex>
-			<StyledFlex $center></StyledFlex>
 		</>
 	)
 }
