@@ -15,5 +15,9 @@ const Button = styled.button`
 	&:hover {
 		background-color: #014c4c;
 	}
+	&:disabled {
+		background-color: gray;
+		color: black;
+	}
 `
 export default StyledButton
