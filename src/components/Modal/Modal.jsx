@@ -5,22 +5,25 @@ class Modal extends Component {
 	intervalId = null
 	timeoutId = null
 	handleKeyDown = e => {
-		console.log(e.key)
 		if (e.key === 'Escape') {
 			this.props.close()
 		}
 	}
 	componentDidMount() {
+		document.body.style.overflow = 'hidden'
 		this.intervalId = setInterval(() => {
 			console.log(new Date().toLocaleTimeString())
 		}, 1000)
-		console.log('Modal is mount')
+
 		this.timeoutId = setTimeout(() => {
 			console.log('Hello')
 		}, 3000)
+
 		document.addEventListener('keydown', this.handleKeyDown)
 	}
 	componentWillUnmount() {
+		document.body.style.overflow = 'auto'
+
 		document.removeEventListener('keydown', this.handleKeyDown)
 		clearInterval(this.intervalId)
 		clearTimeout(this.timeoutId)

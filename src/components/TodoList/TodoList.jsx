@@ -5,11 +5,31 @@ import { Flex } from '../../styles/GlobalStyles'
 import React from 'react'
 import { nanoid } from 'nanoid'
 import API, { sum } from '../test'
+import Modal from '../Modal/Modal'
 
 export class TodoList extends React.Component {
 	state = {
 		todos: todosData,
 		currentText: '',
+		isOpen: false,
+		isOpenSecondModal: false,
+	}
+	inputRef = React.createRef(null)
+
+	myBtnClearRef = React.createRef(null)
+	componentDidUpdate(_, prevState) {
+		const { todos } = this.state
+		if (prevState.todos.length !== todos.length) {
+			window.localStorage.setItem('Todos', JSON.stringify(todos))
+		}
+	}
+	componentDidMount() {
+		const items = JSON.parse(window.localStorage.getItem('Todos'))
+		if (items.length) {
+			this.setState({ todos: items })
+		}
+		console.log(this.myBtnClearRef)
+		this.inputRef.current.focus()
 	}
 	handleDeleteTodo = id => {
 		// const newTodos = this.state.todos.filter(item => item.id !== id)
@@ -40,15 +60,39 @@ export class TodoList extends React.Component {
 	handleClearTodosCompleted = () => {
 		this.setState(prev => ({ todos: prev.todos.filter(item => !item.completed) }))
 	}
-
+	toggleModal = () => {
+		this.setState({ isOpen: !this.state.isOpen })
+	}
+	toggleModalSecond = () => {
+		this.setState({ isOpenSecondModal: !this.state.isOpenSecondModal })
+	}
+	openModal = () => {
+		this.setState({ isOpen: true })
+	}
+	closeModal = () => {
+		this.setState({ isOpen: false })
+	}
 	render() {
-		const { todos, currentText } = this.state
+		const { todos, currentText, isOpen } = this.state
 		return (
 			<>
+				{isOpen && (
+					<Modal close={this.closeModal}>
+						Coctaile n12
+						<button onClick={this.toggleModalSecond}>SHow</button>
+						{this.state.isOpenSecondModal && (
+							<Modal close={this.toggleModalSecond}>
+								Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officia tenetur fuga similique ducimus magnam
+								rem deleniti reiciendis sequi enim vero architecto nisi ex cumque mollitia, aliquid nostrum modi.
+							</Modal>
+						)}
+					</Modal>
+				)}
 				<StyledTodoList>
 					<Flex $height='auto'>
-						<StyledInput type='text' value={currentText} onChange={this.handleChangeInput} />
+						<StyledInput ref={this.inputRef} type='text' value={currentText} onChange={this.handleChangeInput} />
 						<StyledButton onClick={this.handleAddTodo}>Add</StyledButton>
+						<StyledButton onClick={this.openModal}>Open Modal</StyledButton>
 					</Flex>
 					{todos.map(item => (
 						<StyledTodo key={item.id}>
@@ -59,7 +103,7 @@ export class TodoList extends React.Component {
 							</StyledButton>
 						</StyledTodo>
 					))}
-					<StyledButton onClick={this.handleClearTodos} $border={4}>
+					<StyledButton ref={this.myBtnClearRef} onClick={this.handleClearTodos} $border={4}>
 						Clear all todos
 					</StyledButton>
 					<StyledButton onClick={this.handleClearTodosCompleted} $border={4}>
