@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Flex } from '../../styles/GlobalStyles'
+import { StyledButton } from '../Counter/Counter.styled'
 
 const skilsList = ['all', 'react', 'angular', 'vue']
 
@@ -11,11 +12,12 @@ export const EmployeesFilter = ({
 	toggleIsAvailable,
 	activeSkill,
 	setActiveSkill,
+	toggleModal,
 }) => {
 	return (
 		<Filters>
 			<h2>Filters</h2>
-
+			<StyledButton onClick={toggleModal}>Open modal</StyledButton>
 			<Flex $height='100px' $items='center'>
 				<input type='text' value={filterStr} onChange={e => setFilter(e.target.value)} />
 
