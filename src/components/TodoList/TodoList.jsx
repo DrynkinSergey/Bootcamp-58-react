@@ -1,12 +1,8 @@
-import { StyledButton } from '../Counter/Counter.styled'
 import { StyledInput, StyledTodo, StyledTodoList } from './TodoList.styled'
 import todosData from './../../assets/todos.json'
 import { Flex } from '../../styles/GlobalStyles'
 import React from 'react'
-import { nanoid } from 'nanoid'
-import API, { sum } from '../test'
 import Modal from '../Modal/Modal'
-import { AnimatePresence, motion } from 'framer-motion'
 
 const textAnimateFromLeft = {
 	hidden: custom => ({
@@ -57,7 +53,6 @@ export class TodoList extends React.Component {
 		// const newTodos = this.state.todos.filter(item => item.id !== id)
 		// console.log(newTodos)
 		// this.setState(prev => ({ todos: newTodos }))
-		API.sum()
 		this.setState(prev => ({ todos: prev.todos.filter(item => item.id !== id) }))
 	}
 
@@ -119,35 +114,32 @@ export class TodoList extends React.Component {
 							value={currentText}
 							onChange={this.handleChangeInput}
 						/>
-						<StyledButton onClick={this.handleAddTodo}>Add</StyledButton>
-						<StyledButton onClick={this.openModal}>Open Modal</StyledButton>
+						<button onClick={this.handleAddTodo}>Add</button>
+						<button onClick={this.openModal}>Open Modal</button>
 					</Flex>
-					<AnimatePresence mode='sync'>
-						{todos.map((item, idx) => (
-							<StyledTodo
-								initial='hidden'
-								custom={{ direction: idx % 2 === 0 ? '-100%' : '100%', delay: idx }}
-								whileInView='visible'
-								viewport={{ once: true }}
-								variants={textAnimateFromLeft}
-								exit='exit'
-								key={item.id}
-							>
-								<input onChange={() => this.handleToggleTodo(item.id)} type='checkbox' checked={item.completed} />
-								<span>{item.todo}</span>
-								<StyledButton onClick={() => this.handleDeleteTodo(item.id)} size='18px'>
-									Delete
-								</StyledButton>
-							</StyledTodo>
-						))}
-					</AnimatePresence>
+					{todos.map((item, idx) => (
+						<StyledTodo
+							initial='hidden'
+							custom={{ direction: idx % 2 === 0 ? '-100%' : '100%', delay: idx }}
+							whileInView='visible'
+							viewport={{ once: true }}
+							variants={textAnimateFromLeft}
+							key={item.id}
+						>
+							<input onChange={() => this.handleToggleTodo(item.id)} type='checkbox' checked={item.completed} />
+							<span>{item.todo}</span>
+							<button onClick={() => this.handleDeleteTodo(item.id)} size='18px'>
+								Delete
+							</button>
+						</StyledTodo>
+					))}
 
-					<StyledButton ref={this.myBtnClearRef} onClick={this.handleClearTodos} $border={4}>
+					<button ref={this.myBtnClearRef} onClick={this.handleClearTodos} $border={4}>
 						Clear all todos
-					</StyledButton>
-					<StyledButton onClick={this.handleClearTodosCompleted} $border={4}>
+					</button>
+					<button onClick={this.handleClearTodosCompleted} $border={4}>
 						Clear selected todos
-					</StyledButton>
+					</button>
 				</StyledTodoList>
 			</>
 		)
