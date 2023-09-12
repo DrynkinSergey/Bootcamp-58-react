@@ -1,5 +1,6 @@
 import React from 'react'
 import { Flex, FlexContainer, StyledButton, StyledCounter } from './Counter.styled'
+import Btn from './Btn'
 
 export class Counter extends React.Component {
 	static defaultProps = {
@@ -12,16 +13,27 @@ export class Counter extends React.Component {
 		loading: false,
 		name: 'Petro',
 	}
+	componentDidMount() {
+		console.log('Counter is ready to work')
+	}
+	componentDidUpdate(_, prevState) {
+		console.log('Counter update')
+		if (this.state.counter === 5) {
+			// alert('Counter equal 5')
+		}
+		if (this.state.counter === 6) {
+			this.setState({ counter: 0 })
+		}
+		if (this.state.step !== prevState.step) {
+			alert('Step is change')
+		}
+		console.log(prevState)
+	}
 
 	increment = () => {
-		//setState з колбеком, котрий йде після виконання зміни
-		// this.setState({ counter: this.state.counter + 1 }, () => {
-		// 	console.log(this.state.counter)
-		// })
-		this.setState(prev => ({ counter: prev.counter + prev.step, step: 21 }))
+		this.setState(prev => ({ counter: prev.counter + prev.step }))
 	}
 	decrement = () => {
-		// this.setState({ counter: this.state.counter - 1 })
 		this.setState(prev => ({ counter: prev.counter - prev.step }))
 	}
 	reset = () => {
@@ -40,13 +52,13 @@ export class Counter extends React.Component {
 		return (
 			<FlexContainer>
 				<StyledCounter>
-					<h4>{title}</h4>
 					<h1>{counter}</h1>
 					<input type='text' value={step} onChange={this.handleChangeStep} />
 					<Flex>
 						<StyledButton onClick={this.decrement}>minus</StyledButton>
 						<StyledButton onClick={this.reset}>reset</StyledButton>
 						<StyledButton onClick={this.increment}>plus</StyledButton>
+						{counter > 3 && <Btn counter={this.state.counter} />}
 					</Flex>
 				</StyledCounter>
 			</FlexContainer>

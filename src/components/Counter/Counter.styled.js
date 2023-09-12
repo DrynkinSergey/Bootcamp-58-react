@@ -30,12 +30,12 @@ export const CounterStyled = styled.h1`
 export const StyledCounter = styled.div`
 	background-color: #454545;
 	min-height: 50vh;
+	padding: 20px 20px;
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
 	align-items: center;
 	justify-content: center;
-	width: 40vw;
 	border-radius: 12px;
 	h1 {
 		font-size: 100px;
