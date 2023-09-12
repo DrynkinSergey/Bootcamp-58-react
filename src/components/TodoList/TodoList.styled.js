@@ -1,6 +1,7 @@
+import { motion } from 'framer-motion'
 import styled from 'styled-components'
 
-export const StyledTodo = styled.li`
+export const StyledTodo = styled(motion.li)`
 	display: flex;
 	gap: 30px;
 	justify-content: space-between;
@@ -20,7 +21,7 @@ export const StyledTodoList = styled.ul`
 	padding: 40px 20px;
 	margin: 0 auto;
 `
-export const StyledInput = styled.input`
+export const StyledInput = styled(motion.input)`
 	width: 80%;
 	border-radius: 8px;
 	box-shadow: 2px 2px 2px 2px grey;

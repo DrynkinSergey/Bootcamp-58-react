@@ -6,7 +6,29 @@ import React from 'react'
 import { nanoid } from 'nanoid'
 import API, { sum } from '../test'
 import Modal from '../Modal/Modal'
+import { AnimatePresence, motion } from 'framer-motion'
 
+const textAnimateFromLeft = {
+	hidden: custom => ({
+		opacity: 0,
+		x: custom.direction,
+	}),
+	visible: custom => ({
+		opacity: 1,
+		x: 0,
+		transition: {
+			duration: 0.1,
+			delay: custom.delay * 0.2,
+		},
+	}),
+	exit: {
+		x: '-100%',
+		opacity: 0,
+		transition: {
+			duration: 0.4,
+		},
+	},
+}
 export class TodoList extends React.Component {
 	state = {
 		todos: todosData,
@@ -90,19 +112,36 @@ export class TodoList extends React.Component {
 				)}
 				<StyledTodoList>
 					<Flex $height='auto'>
-						<StyledInput ref={this.inputRef} type='text' value={currentText} onChange={this.handleChangeInput} />
+						<StyledInput
+							animate={{ x: [100, 0, -100, 0] }}
+							ref={this.inputRef}
+							type='text'
+							value={currentText}
+							onChange={this.handleChangeInput}
+						/>
 						<StyledButton onClick={this.handleAddTodo}>Add</StyledButton>
 						<StyledButton onClick={this.openModal}>Open Modal</StyledButton>
 					</Flex>
-					{todos.map(item => (
-						<StyledTodo key={item.id}>
-							<input onChange={() => this.handleToggleTodo(item.id)} type='checkbox' checked={item.completed} />
-							<span>{item.todo}</span>
-							<StyledButton onClick={() => this.handleDeleteTodo(item.id)} size='18px'>
-								Delete
-							</StyledButton>
-						</StyledTodo>
-					))}
+					<AnimatePresence mode='sync'>
+						{todos.map((item, idx) => (
+							<StyledTodo
+								initial='hidden'
+								custom={{ direction: idx % 2 === 0 ? '-100%' : '100%', delay: idx }}
+								whileInView='visible'
+								viewport={{ once: true }}
+								variants={textAnimateFromLeft}
+								exit='exit'
+								key={item.id}
+							>
+								<input onChange={() => this.handleToggleTodo(item.id)} type='checkbox' checked={item.completed} />
+								<span>{item.todo}</span>
+								<StyledButton onClick={() => this.handleDeleteTodo(item.id)} size='18px'>
+									Delete
+								</StyledButton>
+							</StyledTodo>
+						))}
+					</AnimatePresence>
+
 					<StyledButton ref={this.myBtnClearRef} onClick={this.handleClearTodos} $border={4}>
 						Clear all todos
 					</StyledButton>
