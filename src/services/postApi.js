@@ -12,3 +12,11 @@ export const fetchPosts = async params => {
 	})
 	return data
 }
+export const fetchPostsByQuery = async params => {
+	const { data } = await dummyInstance.get('/posts/search', {
+		params: {
+			...params,
+		},
+	})
+	return data
+}
