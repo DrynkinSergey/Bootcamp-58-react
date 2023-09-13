@@ -67,6 +67,7 @@ export class TodoList extends React.Component {
 			const { data } = await axios.get('https://dummyjson.com/todos', {
 				params: {
 					limit: this.state.limit,
+					skip: 10,
 				},
 			})
 			this.setState({ todos: data.todos })
