@@ -3,6 +3,7 @@ import todosData from './../../assets/todos.json'
 import { Flex } from '../../styles/GlobalStyles'
 import React from 'react'
 import Modal from '../Modal/Modal'
+import axios from 'axios'
 
 const textAnimateFromLeft = {
 	hidden: custom => ({
@@ -29,25 +30,52 @@ export class TodoList extends React.Component {
 	state = {
 		todos: todosData,
 		currentText: '',
+		limit: 3,
 		isOpen: false,
 		isOpenSecondModal: false,
 	}
 	inputRef = React.createRef(null)
 
 	myBtnClearRef = React.createRef(null)
-	componentDidUpdate(_, prevState) {
-		const { todos } = this.state
-		if (prevState.todos.length !== todos.length) {
-			window.localStorage.setItem('Todos', JSON.stringify(todos))
+	async componentDidUpdate(_, prevState) {
+		const { todos, limit } = this.state
+		if (prevState.limit !== limit) {
+			try {
+				const { data } = await axios.get('https://dummyjson.com/todos', {
+					params: {
+						limit: this.state.limit,
+					},
+				})
+				this.setState({ todos: data.todos })
+			} catch (error) {
+				alert(error.message)
+			}
 		}
 	}
-	componentDidMount() {
-		const items = JSON.parse(window.localStorage.getItem('Todos'))
-		if (items.length) {
-			this.setState({ todos: items })
+	async componentDidMount() {
+		// Принципи деструктуризації
+
+		// const testObj = { name: 'Pavlo', email: 'Pavlo123@mail.com.ua' }
+		// const { name } = testObj
+		// const arr = ['Apple', 'Banana', 'Carrots']
+		// const [fruitNumberOne, ...otherFruits] = arr
+		// console.log(fruitNumberOne)
+		// console.log(otherFruits)
+
+		// axios.get('https://dummyjson.com/todos').then(res => this.setState({ todos: res.data.todos }))
+		try {
+			const { data } = await axios.get('https://dummyjson.com/todos', {
+				params: {
+					limit: this.state.limit,
+				},
+			})
+			this.setState({ todos: data.todos })
+		} catch (error) {
+			alert(error.message)
 		}
-		console.log(this.myBtnClearRef)
-		this.inputRef.current.focus()
+	}
+	handleChangeLimit = limit => {
+		this.setState({ limit })
 	}
 	handleDeleteTodo = id => {
 		// const newTodos = this.state.todos.filter(item => item.id !== id)
@@ -89,6 +117,9 @@ export class TodoList extends React.Component {
 	closeModal = () => {
 		this.setState({ isOpen: false })
 	}
+	fetchRandom = () => {
+		axios.get('https://dummyjson.com/todos/random').then(res => this.setState({ todos: [res.data] }))
+	}
 	render() {
 		const { todos, currentText, isOpen } = this.state
 		return (
@@ -117,6 +148,12 @@ export class TodoList extends React.Component {
 						<button onClick={this.handleAddTodo}>Add</button>
 						<button onClick={this.openModal}>Open Modal</button>
 					</Flex>
+					<select value={this.state.limit} onChange={e => this.handleChangeLimit(e.target.value)}>
+						<option value='3'>3</option>
+						<option value='5'>5</option>
+						<option value='10'>10</option>
+					</select>
+					<button onClick={this.fetchRandom}>Get random TODO</button>
 					{todos.map((item, idx) => (
 						<StyledTodo
 							initial='hidden'
