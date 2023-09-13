@@ -1,11 +1,11 @@
 import React from 'react'
 import SearchForm from './SearchForm'
 
-export const Header = () => {
+export const Header = ({ onChangeQuery }) => {
 	return (
 		<header>
 			<h2>GoIT Posts Search</h2>
-			<SearchForm />
+			<SearchForm onChangeQuery={onChangeQuery} />
 		</header>
 	)
 }
