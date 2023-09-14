@@ -38,7 +38,7 @@ export class TodoList extends React.Component {
 
 	myBtnClearRef = React.createRef(null)
 	async componentDidUpdate(_, prevState) {
-		const { todos, limit } = this.state
+		const { limit } = this.state
 		if (prevState.limit !== limit) {
 			try {
 				const { data } = await axios.get('https://dummyjson.com/todos', {
@@ -53,16 +53,6 @@ export class TodoList extends React.Component {
 		}
 	}
 	async componentDidMount() {
-		// Принципи деструктуризації
-
-		// const testObj = { name: 'Pavlo', email: 'Pavlo123@mail.com.ua' }
-		// const { name } = testObj
-		// const arr = ['Apple', 'Banana', 'Carrots']
-		// const [fruitNumberOne, ...otherFruits] = arr
-		// console.log(fruitNumberOne)
-		// console.log(otherFruits)
-
-		// axios.get('https://dummyjson.com/todos').then(res => this.setState({ todos: res.data.todos }))
 		try {
 			const { data } = await axios.get('https://dummyjson.com/todos', {
 				params: {
@@ -79,9 +69,6 @@ export class TodoList extends React.Component {
 		this.setState({ limit })
 	}
 	handleDeleteTodo = id => {
-		// const newTodos = this.state.todos.filter(item => item.id !== id)
-		// console.log(newTodos)
-		// this.setState(prev => ({ todos: newTodos }))
 		this.setState(prev => ({ todos: prev.todos.filter(item => item.id !== id) }))
 	}
 
@@ -183,24 +170,3 @@ export class TodoList extends React.Component {
 		)
 	}
 }
-
-// export const TodoList = () => {
-// 	return (
-// 		<>
-// 			<StyledTodoList>
-// 				<Flex $height='auto'>
-// 					<StyledInput type='text' />
-// 					<StyledButton>Add</StyledButton>
-// 				</Flex>
-// 				{todos.map(item => (
-// 					<StyledTodo>
-// 						<input type='checkbox' />
-// 						<span>{item.todo}</span>
-// 						<StyledButton size='18px'>Delete</StyledButton>
-// 					</StyledTodo>
-// 				))}
-// 				<StyledButton $border={4}>Clear all todos</StyledButton>
-// 			</StyledTodoList>
-// 		</>
-// 	)
-// }

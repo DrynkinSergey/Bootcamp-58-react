@@ -2,10 +2,8 @@ import React, { Component } from 'react'
 import { Header } from './Header'
 import { PostList } from './PostList'
 import { fetchPosts, fetchPostsByQuery } from '../../services/postApi'
-import { Wrapper, WrapperPosts } from './Posts.styled'
-import axios from 'axios'
+import { WrapperPosts } from './Posts.styled'
 import { Button } from './Button'
-import { Comment } from 'react-loader-spinner'
 import { Spinner } from './Spinner'
 import { toast } from 'react-toastify'
 
@@ -21,9 +19,6 @@ export default class Posts extends Component {
 	async componentDidMount() {
 		this.setState({ loading: true })
 		try {
-			//Alternative
-			// const data = await fetchPosts()
-			// this.setState({ posts: data.posts, limit: data.limit })
 			const { posts, limit } = await fetchPosts({ limit: this.state.limit, skip: this.state.skip })
 			this.setState(prev => ({ posts: [...prev.posts, ...posts], limit }))
 		} catch (error) {
