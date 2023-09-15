@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react'
+import React, { Component, useEffect, useRef, useState } from 'react'
 import { Header } from './Header'
 import { PostList } from './PostList'
 import { fetchPosts, fetchPostsByQuery } from '../../services/postApi'
@@ -86,8 +86,21 @@ const Posts = () => {
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState(null)
 	const [query, setQuery] = useState('')
-
+	const firstRender = useRef(true)
+	// useEffect(() => {
+	// 	if (firstRender.current) {
+	// 		console.log('Тут ми відмінили виконання еффекта при  першому рендері')
+	// 		firstRender.current = false
+	// 		return
+	// 	}
+	// 	console.log('render')
+	// })
 	useEffect(() => {
+		if (firstRender.current) {
+			console.log('Тут ми відмінили виконання еффекта при  першому рендері')
+			firstRender.current = false
+			return
+		}
 		const getPostsFn = async fnType => {
 			// this.setState({ loading: true })
 			setLoading(true)

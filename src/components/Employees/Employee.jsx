@@ -2,7 +2,7 @@ import { EmployeesFilter } from './EmployeesFilter'
 import { EmployeeList } from './EmployeeList'
 import userData from './../../assets/users.json'
 import { styled } from 'styled-components'
-import { Component, useState } from 'react'
+import { Component, useEffect, useState } from 'react'
 import { getFilteredData } from '../../helpers/getFilteredData'
 import Modal from '../Modal/Modal'
 
@@ -75,6 +75,18 @@ export const Employee = () => {
 	const [isAvailable, setIsAvailable] = useState(false)
 	const [activeSkill, setActiveSkill] = useState('all')
 	const [isOpenModal, setIsOpenModal] = useState(false)
+
+	useEffect(() => {
+		const items = JSON.parse(window.localStorage.getItem('USERS'))
+		if (items?.length) {
+			// this.setState({ users: items })
+			setUsers(items)
+		}
+	}, [])
+
+	useEffect(() => {
+		window.localStorage.setItem('USERS', JSON.stringify(users))
+	}, [users])
 
 	const handleDeleteUser = id => {
 		// const newUsers = this.state.users.filter(user => user.id !== id)

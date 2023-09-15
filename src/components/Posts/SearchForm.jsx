@@ -1,23 +1,31 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect, useRef, useState } from 'react'
 
-export default class SearchForm extends Component {
-	state = {
-		query: '',
+const SearchForm = ({ onChangeQuery }) => {
+	// state = {
+	// 	query: '',
+	// }
+	const [query, setQuery] = useState()
+	const myRef = useRef(null)
+	const handleChange = e => {
+		// this.setState({ query: e.target.value })
+		setQuery(e.target.value)
 	}
-	handleChange = e => {
-		this.setState({ query: e.target.value })
-	}
-	handleSubmit = e => {
+	const handleSubmit = e => {
 		e.preventDefault()
-		this.props.onChangeQuery(this.state.query)
-		this.setState({ query: '' })
+		// this.props.onChangeQuery(this.state.query)
+		onChangeQuery(query)
+		// this.setState({ query: '' })
+		setQuery('')
+		myRef.current.focus()
 	}
-	render() {
-		return (
-			<form onSubmit={this.handleSubmit}>
-				<input type='text' value={this.state.query} onChange={this.handleChange} />
-				<button>Search</button>
-			</form>
-		)
-	}
+	useEffect(() => {
+		myRef.current.focus()
+	}, [])
+	return (
+		<form onSubmit={handleSubmit}>
+			<input ref={myRef} type='text' value={query} onChange={handleChange} />
+			<button>Search</button>
+		</form>
+	)
 }
+export default SearchForm
