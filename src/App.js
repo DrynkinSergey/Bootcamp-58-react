@@ -9,7 +9,8 @@ import { TodoList } from './components/TodoList/TodoList'
 const App = () => {
 	return (
 		<>
-			<TodoList />
+			<Posts />
+			{/* <TodoList /> */}
 			{/* <Employee /> */}
 			{/* <Counter /> */}
 			{/* <ColorPicker /> */}
