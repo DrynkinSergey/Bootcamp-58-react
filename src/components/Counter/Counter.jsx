@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Flex, FlexContainer, StyledButton, StyledCounter } from './Counter.styled'
 
 // export class Counter extends React.Component {
@@ -56,18 +56,31 @@ import { Flex, FlexContainer, StyledButton, StyledCounter } from './Counter.styl
 // }
 
 export const Counter = () => {
+	const text = 'hello'
 	const [counter, setCounter] = useState(0)
 	const [step, setStep] = useState(1)
-	const [name, setName] = useState('Alex')
+	const [name, setName] = useState(text)
 	const [user, setUser] = useState({
 		name: 'alex',
 		email: 'alex@1.ua',
 	})
-	console.log(counter)
+	useEffect(() => {
+		console.log('hello counter')
+	}, [])
+	useEffect(() => {
+		if (counter > 3) {
+			console.log('STOP CLICKING ON MY BUTTON')
+		}
+	}, [counter])
+	useEffect(() => {
+		console.log('counter or step was changed')
+	}, [counter, step])
 
 	const increment = () => {
 		// this.setState(prev => ({ counter: prev.counter + prev.step }))
+
 		setName('Stepan')
+
 		setUser({
 			...user,
 			name: 'Andre',
