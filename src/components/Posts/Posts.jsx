@@ -86,21 +86,19 @@ const Posts = () => {
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState(null)
 	const [query, setQuery] = useState('')
+	const [user, setUser] = useState({ name: 'Alex', email: 'a@.ua', age: 11 })
 	const firstRender = useRef(true)
-	// useEffect(() => {
-	// 	if (firstRender.current) {
-	// 		console.log('Тут ми відмінили виконання еффекта при  першому рендері')
-	// 		firstRender.current = false
-	// 		return
-	// 	}
-	// 	console.log('render')
-	// })
+	const countOfRenders = useRef(0)
 	useEffect(() => {
-		if (firstRender.current) {
-			console.log('Тут ми відмінили виконання еффекта при  першому рендері')
-			firstRender.current = false
-			return
-		}
+		countOfRenders.current += 1
+		console.log('RENDER COUNT : ', countOfRenders.current)
+	})
+	useEffect(() => {
+		// if (firstRender.current) {
+		// 	console.log('Тут ми відмінили виконання еффекта при  першому рендері')
+		// 	firstRender.current = false
+		// 	return
+		// }
 		const getPostsFn = async fnType => {
 			// this.setState({ loading: true })
 			setLoading(true)

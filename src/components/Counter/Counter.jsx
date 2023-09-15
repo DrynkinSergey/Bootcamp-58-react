@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Flex, FlexContainer, StyledButton, StyledCounter } from './Counter.styled'
 
 // export class Counter extends React.Component {
@@ -64,6 +64,12 @@ export const Counter = () => {
 		name: 'alex',
 		email: 'alex@1.ua',
 	})
+	const countOfRenders = useRef(0)
+	useEffect(() => {
+		countOfRenders.current += 1
+		console.log('RENDER COUNT : ', countOfRenders.current)
+	})
+
 	useEffect(() => {
 		console.log('hello counter')
 	}, [])
