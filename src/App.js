@@ -4,11 +4,13 @@ import { Counter } from './components/Counter/Counter'
 import { ColorPicker } from './components/ColorPicker/ColorPicker'
 import Login from './components/Login/Login'
 import { Employee } from './components/Employees/Employee'
+import { TodoList } from './components/TodoList/TodoList'
 
 const App = () => {
 	return (
 		<>
-			<Employee />
+			<TodoList />
+			{/* <Employee /> */}
 			{/* <Counter /> */}
 			{/* <ColorPicker /> */}
 		</>
