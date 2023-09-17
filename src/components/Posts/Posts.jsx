@@ -94,24 +94,17 @@ const Posts = () => {
 		console.log('RENDER COUNT : ', countOfRenders.current)
 	})
 	useEffect(() => {
-		// if (firstRender.current) {
-		// 	console.log('Тут ми відмінили виконання еффекта при  першому рендері')
-		// 	firstRender.current = false
-		// 	return
-		// }
+	
 		const getPostsFn = async fnType => {
-			// this.setState({ loading: true })
 			setLoading(true)
 			try {
 				const { posts, limit } = await fnType({ limit: limitValue, skip, q: query })
-				// this.setState(prev => ({ posts: [...prev.posts, ...posts], limitValue: limit }))
 				setPosts(prev => [...prev, ...posts])
 				setLimitValue(limit)
 			} catch (error) {
 				alert(error.message)
 			} finally {
 				toast.success('You data is ready!')
-				// this.setState({ loading: false })
 				setLoading(false)
 			}
 		}
@@ -138,11 +131,9 @@ const Posts = () => {
 	}, [])
 
 	const handleLoadMore = () => {
-		// this.setState(prev => ({ skip: prev.skip + prev.limit }))
 		setSkip(prev => prev + limitValue)
 	}
 	const handleChangeQuery = queryStr => {
-		// this.setState({ query: queryStr, posts: [] })
 		setQuery(queryStr)
 		setPosts([])
 	}

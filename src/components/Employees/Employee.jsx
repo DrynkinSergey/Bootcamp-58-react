@@ -89,25 +89,20 @@ export const Employee = () => {
 	}, [users])
 
 	const handleDeleteUser = id => {
-		// const newUsers = this.state.users.filter(user => user.id !== id)
-		// this.setState({ users: newUsers })
+
 		setUsers(prev => prev.filter(user => user.id !== id))
 	}
 	const handleChangeFilter = filterStr => {
-		// this.setState({ filterStr })
 		setFilterStr(filterStr)
 	}
 	const handleChangeAvailable = () => {
-		// this.setState(prev => ({ isAvailable: !prev.isAvailable }))
 		setIsAvailable(prev => !prev)
 	}
 	const handleChangeSkill = activeSkill => {
-		// this.setState({ activeSkill })
 		setActiveSkill(activeSkill)
 	}
 	const toggleModal = () => {
 		setIsOpenModal(prev => !prev)
-		// this.setState(prev => ({ isOpenModal: !prev.isOpenModal }))
 	}
 
 	const filteredData = getFilteredData(users, filterStr, isAvailable, activeSkill)
