@@ -4,6 +4,7 @@ import { Flex } from '../../styles/GlobalStyles'
 import React, { useContext, useEffect, useState } from 'react'
 import Modal from '../Modal/Modal'
 import axios from 'axios'
+import { ThemeContext } from '../../context/ThemeContext'
 
 const textAnimateFromLeft = {
 	hidden: custom => ({
@@ -34,7 +35,7 @@ export const TodoList = () => {
 	const [skip, setSkip] = useState(0)
 	const [isOpen, setIsOpen] = useState(false)
 	const [isOpenSecondModal, setIsOpenSecondModal] = useState(false)
-
+	const { theme } = useContext(ThemeContext)
 	useEffect(() => {
 		const fetchTodos = async () => {
 			try {
@@ -128,6 +129,7 @@ export const TodoList = () => {
 				<button onClick={() => setSkip(10)}>Set skip 10</button>
 				{todos.map((item, idx) => (
 					<StyledTodo
+						$bg={theme}
 						initial='hidden'
 						custom={{ direction: idx % 2 === 0 ? '-100%' : '100%', delay: idx }}
 						whileInView='visible'

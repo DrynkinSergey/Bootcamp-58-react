@@ -10,6 +10,7 @@ export const StyledTodo = styled(motion.li)`
 	box-shadow: 2px 2px 2px 2px grey;
 	padding: 10px 20px;
 	border-radius: 8px;
+	background-color: ${props => (props.$bg === 'dark' ? 'lime' : 'gold')};
 	transition: all 0.4s ease-in-out;
 	cursor: pointer;
 `

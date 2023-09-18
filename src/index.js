@@ -9,12 +9,15 @@ import { ThemeProvider } from 'styled-components'
 import 'modern-normalize'
 import './index.css'
 import ContextProvider from './context/ContextProvider'
+import ThemeProviderContext from './context/ThemeContext'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
 	<ThemeProvider theme={theme}>
 		<ContextProvider>
-			<App />
+			<ThemeProviderContext>
+				<App />
+			</ThemeProviderContext>
 		</ContextProvider>
 		<ToastContainer autoClose={1000} />
 		<GlobalStyles />
