@@ -1,7 +1,7 @@
 import { StyledInput, StyledTodo, StyledTodoList } from './TodoList.styled'
 import todosData from './../../assets/todos.json'
 import { Flex } from '../../styles/GlobalStyles'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Modal from '../Modal/Modal'
 import axios from 'axios'
 

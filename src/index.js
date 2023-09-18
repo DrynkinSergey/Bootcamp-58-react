@@ -8,11 +8,14 @@ import { darkTheme, theme } from './styles/theme'
 import { ThemeProvider } from 'styled-components'
 import 'modern-normalize'
 import './index.css'
+import ContextProvider from './context/ContextProvider'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
 	<ThemeProvider theme={theme}>
-		<App />
+		<ContextProvider>
+			<App />
+		</ContextProvider>
 		<ToastContainer autoClose={1000} />
 		<GlobalStyles />
 	</ThemeProvider>
