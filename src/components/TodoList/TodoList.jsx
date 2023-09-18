@@ -1,7 +1,7 @@
 import { StyledInput, StyledTodo, StyledTodoList } from './TodoList.styled'
 import todosData from './../../assets/todos.json'
 import { Flex } from '../../styles/GlobalStyles'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useReducer, useState } from 'react'
 import Modal from '../Modal/Modal'
 import axios from 'axios'
 import { ThemeContext } from '../../context/ThemeContext'
@@ -29,13 +29,100 @@ const textAnimateFromLeft = {
 }
 
 export const TodoList = () => {
-	const [todos, setTodos] = useState(todosData)
-	const [currentText, setCurrentText] = useState('')
-	const [limit, setLimit] = useState(3)
-	const [skip, setSkip] = useState(0)
-	const [isOpen, setIsOpen] = useState(false)
-	const [isOpenSecondModal, setIsOpenSecondModal] = useState(false)
+	// const [todos, setTodos] = useState(todosData)
+	// const [currentText, setCurrentText] = useState('')
+	// const [limit, setLimit] = useState(3)
+	// const [skip, setSkip] = useState(0)
+	// const [isOpen, setIsOpen] = useState(false)
+	// const [isOpenSecondModal, setIsOpenSecondModal] = useState(false)
+
+	// 1. Створюємо початковий стан для хука useReducer
+	const initialState = {
+		todos: [],
+		currentText: '',
+		limit: 3,
+		skip: 0,
+		isOpen: false,
+		isOpenSecondModal: false,
+	}
+
+	// 2. Створюємо функцію редьюсер для управління станом
+
+	const todoReducer = (state, action) => {
+		switch (action.type) {
+			case 'SET_TODOS':
+				return {
+					...state,
+					todos: action.payload,
+				}
+			case 'CHANGE_LIMIT':
+				return {
+					...state,
+					limit: action.payload,
+				}
+			case 'DELETE':
+				return {
+					...state,
+					todos: state.todos.filter(item => item.id !== action.payload),
+				}
+			case 'ADD':
+				return {
+					...state,
+					todos: [...state.todos, action.payload],
+				}
+			case 'CHANGE_TEXT':
+				return {
+					...state,
+					currentText: action.payload,
+				}
+			case 'TOGGLE':
+				return {
+					...state,
+					todos: state.todos.map(item => (item.id === action.payload ? { ...item, completed: !item.completed } : item)),
+				}
+			case 'CLEAR_TODOS':
+				return {
+					...state,
+					todos: [],
+				}
+			case 'CLEAR_SELECTED':
+				return {
+					...state,
+					todos: state.todos.filter(item => !item.completed),
+				}
+			case 'TOGGLE_MODAL':
+				return {
+					...state,
+					isOpen: !state.isOpen,
+				}
+			case 'OPEN_MODAL':
+				return {
+					...state,
+					isOpen: true,
+				}
+			case 'CLOSE_MODAL':
+				return {
+					...state,
+					isOpen: false,
+				}
+			case 'GET_RANDOM':
+				return {
+					...state,
+					todos: action.payload,
+				}
+			default:
+				return state
+		}
+	}
+
+	// 3. Використовуємо хук useReducer, передаємо функцію для обробки стейта і сам стейт
+
+	const [state, dispatch] = useReducer(todoReducer, initialState)
+	// 4. Деструктуризація стейта
+	const { todos, limit, skip, isOpen, isOpenSecondModal, currentText } = state
+
 	const { theme } = useContext(ThemeContext)
+
 	useEffect(() => {
 		const fetchTodos = async () => {
 			try {
@@ -45,7 +132,8 @@ export const TodoList = () => {
 						skip,
 					},
 				})
-				setTodos(data.todos)
+				// setTodos(data.todos)
+				dispatch({ type: 'SET_TODOS', payload: data.todos })
 			} catch (error) {
 				alert(error.message)
 			}
@@ -53,46 +141,58 @@ export const TodoList = () => {
 		fetchTodos()
 	}, [limit, skip])
 	const handleChangeLimit = limit => {
-		setLimit(limit)
+		// setLimit(limit)
+		dispatch({ type: 'CHANGE_LIMIT', payload: limit })
 	}
 	const handleDeleteTodo = id => {
-		setTodos(prev => prev.filter(item => item.id !== id))
+		// setTodos(prev => prev.filter(item => item.id !== id))
+		dispatch({ type: 'DELETE', payload: id })
 	}
 
 	const handleAddTodo = () => {
 		const item = { id: crypto.randomUUID(), todo: currentText, completed: false }
-		setTodos(prev => [...prev, item])
-		setCurrentText('')
+		dispatch({ type: 'ADD', payload: item })
+		// setTodos(prev => [...prev, item])
+		// setCurrentText('')
 	}
 
 	const handleChangeInput = e => {
-		setCurrentText(e.target.value)
+		// setCurrentText(e.target.value)
+		dispatch({ type: 'CHANGE_TEXT', payload: e.target.value })
 	}
 
 	const handleToggleTodo = id => {
 		console.log(id)
-		setTodos(prev => prev.map(item => (item.id === id ? { ...item, completed: !item.completed } : item)))
+		dispatch({ type: 'TOGGLE', payload: id })
+		// setTodos(prev => prev.map(item => (item.id === id ? { ...item, completed: !item.completed } : item)))
 	}
 	const handleClearTodos = () => {
-		setTodos([])
+		dispatch({ type: 'CLEAR_TODOS' })
+		// setTodos([])
 	}
 	const handleClearTodosCompleted = () => {
-		setTodos(prev => prev.filter(item => !item.completed))
+		// setTodos(prev => prev.filter(item => !item.completed))
+		dispatch({ type: 'CLEAR_SELECTED' })
 	}
 	const toggleModal = () => {
-		setIsOpen(open => !open)
+		// setIsOpen(open => !open)
+		dispatch({ type: 'TOGGLE_MODAL' })
 	}
 	const toggleModalSecond = () => {
-		setIsOpenSecondModal(open => !open)
+		// setIsOpenSecondModal(open => !open)
 	}
 	const openModal = () => {
-		setIsOpen(true)
+		// setIsOpen(true)
+		dispatch({ type: 'OPEN_MODAL' })
 	}
 	const closeModal = () => {
-		setIsOpen(false)
+		// setIsOpen(false)
+		dispatch({ type: 'CLOSE_MODAL' })
 	}
 	const fetchRandom = () => {
-		axios.get('https://dummyjson.com/todos/random').then(({ data }) => setTodos([data]))
+		axios
+			.get('https://dummyjson.com/todos/random')
+			.then(({ data }) => dispatch({ type: 'GET_RANDOM', payload: [data] }))
 	}
 
 	return (
@@ -126,7 +226,7 @@ export const TodoList = () => {
 					<option value='10'>10</option>
 				</select>
 				<button onClick={fetchRandom}>Get random TODO</button>
-				<button onClick={() => setSkip(10)}>Set skip 10</button>
+				{/* <button onClick={() => setSkip(10)}>Set skip 10</button> */}
 				{todos.map((item, idx) => (
 					<StyledTodo
 						$bg={theme}
