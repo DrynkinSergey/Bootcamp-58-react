@@ -14,7 +14,7 @@ const App = () => {
 	const { user, isLoggedIn, logout, todos } = useContext(MyContext)
 	const { theme, changeTheme } = useContext(ThemeContext)
 
-	console.log(todos)
+	// console.log(todos)
 	if (!isLoggedIn) {
 		return (
 			<StyledFlex $center>
@@ -24,15 +24,15 @@ const App = () => {
 	}
 	return (
 		<div style={{ background: theme === 'dark' ? 'gray' : 'white' }}>
-			<h1>{user.name}</h1>
+			{/* <h1>{user.name}</h1>
 			<h1>{user.email}</h1>
 			<button onClick={changeTheme}>SWITCH THEME</button>
-			<button onClick={logout}>LOGOUT</button>
+			<button onClick={logout}>LOGOUT</button> */}
 			{/* <Posts /> */}
 			<TodoList />
 			{/* <Employee /> */}
-			<Counter />
-			<Component1 name='Oleg' auto='Cherry QQ' />
+			{/* <Counter /> */}
+			{/* <Component1 name='Oleg' auto='Cherry QQ' /> */}
 			{/* <ColorPicker /> */}
 		</div>
 	)

@@ -1,11 +1,42 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
 import { Flex, FlexContainer, StyledButton, StyledCounter } from './Counter.styled'
 const data = ['1', 2, 3, 4, 5, 6, 11]
 export const Counter = () => {
-	const text = 'hello'
-	const [counter, setCounter] = useState(0)
-	const [step, setStep] = useState(1)
-	const [name, setName] = useState(text)
+	const initialState = {
+		counter: 0,
+		step: 1,
+	}
+
+	const counterReducer = (state, action) => {
+		console.log(action)
+		switch (action.type) {
+			case 'INCREMENT':
+				return {
+					...state,
+					counter: state.counter + state.step,
+				}
+			case 'decrement':
+				return {
+					...state,
+					counter: state.counter - state.step,
+				}
+			case 'RESET':
+				return {
+					...state,
+					counter: 0,
+					step: 1,
+				}
+			case 'SET_STEP':
+				return {
+					...state,
+					step: action.payload,
+				}
+			default:
+				return state
+		}
+	}
+
+	const [state, dispatch] = useReducer(counterReducer, initialState)
 
 	// const sum = value => {
 	// 	console.log('CALC SOME DATA')
@@ -31,27 +62,31 @@ export const Counter = () => {
 	// }, [step])
 	// const res = sum(step)
 	const increment = () => {
-		setCounter(prev => prev + step)
+		dispatch({ type: 'INCREMENT' })
+		// setCounter(prev => prev + step)
 	}
 
 	const decrement = () => {
-		setCounter(prev => prev - step)
+		// setCounter(prev => prev - step)
+		dispatch({ type: 'decrement' })
 	}
 
 	const reset = () => {
-		setCounter(0)
+		// setCounter(0)
+		dispatch({ type: 'RESET' })
 	}
 
 	const handleChangeStep = e => {
-		setStep(+e.target.value)
+		// setStep(+e.target.value)
+		dispatch({ type: 'SET_STEP', payload: +e.target.value })
 	}
 
 	return (
 		<FlexContainer>
 			<StyledCounter>
-				<h1>{counter}</h1>
+				<h1>{state.counter}</h1>
 
-				<input type='text' value={step} onChange={handleChangeStep} />
+				<input type='text' value={state.step} onChange={handleChangeStep} />
 				<Flex>
 					<StyledButton onClick={decrement}>minus</StyledButton>
 					<StyledButton onClick={reset}>reset</StyledButton>
