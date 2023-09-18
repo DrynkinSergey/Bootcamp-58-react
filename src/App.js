@@ -15,21 +15,21 @@ const App = () => {
 	const { theme, changeTheme } = useContext(ThemeContext)
 
 	// console.log(todos)
-	if (!isLoggedIn) {
-		return (
-			<StyledFlex $center>
-				<Login />
-			</StyledFlex>
-		)
-	}
+	// if (!isLoggedIn) {
+	// 	return (
+	// 		<StyledFlex $center>
+	// 			<Login />
+	// 		</StyledFlex>
+	// 	)
+	// }
 	return (
-		<div style={{ background: theme === 'dark' ? 'gray' : 'white' }}>
+		<div>
 			{/* <h1>{user.name}</h1>
 			<h1>{user.email}</h1>
 			<button onClick={changeTheme}>SWITCH THEME</button>
 			<button onClick={logout}>LOGOUT</button> */}
-			{/* <Posts /> */}
-			<TodoList />
+			<Posts />
+			{/* <TodoList /> */}
 			{/* <Employee /> */}
 			{/* <Counter /> */}
 			{/* <Component1 name='Oleg' auto='Cherry QQ' /> */}
