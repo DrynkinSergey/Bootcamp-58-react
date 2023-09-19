@@ -1,28 +1,13 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useHttp } from '../hooks/useHttp'
+import { getUserById } from '../service/api'
 
 const SingleUser = () => {
 	const { id } = useParams()
-	const [user, setUser] = useState({})
-	const [loading, setLoading] = useState(false)
-	const [error, setError] = useState(null)
-	useEffect(() => {
-		setLoading(true)
-		const getData = async () => {
-			setLoading(true)
-			try {
-				const { data } = await axios.get(`https://dummyjson.com/users/${id}`)
-				setUser(data)
-				setLoading(false)
-			} catch (error) {
-				setError(error.message)
-				setLoading(false)
-			}
-		}
+	const { data: user, loading, error } = useHttp(getUserById, id)
 
-		getData()
-	}, [id])
 	return (
 		<div>
 			<h2>User - {user.firstName}</h2>

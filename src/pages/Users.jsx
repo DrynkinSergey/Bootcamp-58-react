@@ -2,27 +2,12 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { getAllUsers, getTodos } from '../service/api'
+import { useHttp } from '../hooks/useHttp'
 
 const Users = () => {
-	const [users, setUsers] = useState([])
-	const [loading, setLoading] = useState(false)
-	const [error, setError] = useState(null)
-	useEffect(() => {
-		setLoading(true)
-		const getData = async () => {
-			setLoading(true)
-			try {
-				const { data } = await axios.get('https://dummyjson.com/users')
-				setUsers(data.users)
-				setLoading(false)
-			} catch (error) {
-				setError(error.message)
-				setLoading(false)
-			}
-		}
+	const { data: users, loading, error } = useHttp(getAllUsers)
 
-		getData()
-	}, [])
 	return (
 		<div>
 			<h2>Users page</h2>
