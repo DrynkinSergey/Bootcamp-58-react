@@ -2,10 +2,31 @@ import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const NavBar = () => {
+	const navArr = [
+		{
+			src: '/',
+			title: 'Home',
+		},
+		{
+			src: '/about',
+			title: 'About',
+		},
+		{
+			src: '/users',
+			title: 'Users',
+		},
+		{
+			src: '/posts',
+			title: 'Posts',
+		},
+	]
 	return (
 		<SideBar>
-			<StyledLink to='/'>Home</StyledLink>
-			<StyledLink to='/about'>About</StyledLink>
+			{navArr.map(({ src, title }) => (
+				<StyledLink key={src} to={src}>
+					{title}
+				</StyledLink>
+			))}
 		</SideBar>
 	)
 }
