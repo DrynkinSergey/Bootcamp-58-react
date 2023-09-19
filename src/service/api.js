@@ -12,3 +12,7 @@ export const getTodos = async () => {
 	const { data } = await axios.get(`https://jsonplaceholder.typicode.com/todos`)
 	return data
 }
+export const getPostsByUserID = async id => {
+	const { data } = await axios.get(`https://dummyjson.com/posts/user/${id}`)
+	return data.posts
+}

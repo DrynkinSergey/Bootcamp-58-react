@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 export const useHttp = (fn, params) => {
-	const [data, setData] = useState([])
+	const [data, setData] = useState(null)
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState(null)
 	useEffect(() => {
