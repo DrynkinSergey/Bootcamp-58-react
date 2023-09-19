@@ -2,6 +2,7 @@ import { Link, Route, Routes } from 'react-router-dom'
 import { Layout } from './components/Layout'
 import Homepage from './pages/Homepage.jsx'
 import About from './pages/About.jsx'
+import PageNotFound from './pages/PageNotFound'
 
 const App = () => {
 	return (
@@ -11,6 +12,7 @@ const App = () => {
 					<Route index element={<Homepage />} />
 					<Route path='about' element={<About />} />
 				</Route>
+				<Route path='*' element={<PageNotFound />} />
 			</Routes>
 		</>
 	)
