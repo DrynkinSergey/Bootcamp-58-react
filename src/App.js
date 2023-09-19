@@ -6,6 +6,7 @@ import PageNotFound from './pages/PageNotFound'
 import Users from './pages/Users'
 import SingleUser from './pages/SingleUser'
 import UserPosts from './components/UserPosts'
+import { ColorPicker } from './components/ColorPicker/ColorPicker'
 
 const App = () => {
 	return (
@@ -15,6 +16,7 @@ const App = () => {
 					<Route index element={<Homepage />} />
 					<Route path='about' element={<About />} />
 					<Route path='users' element={<Users />} />
+					<Route path='colorPicker' element={<ColorPicker />} />
 
 					{/* users/11 */}
 					{/* users/11/address */}
@@ -24,7 +26,7 @@ const App = () => {
 						<Route path='posts' element={<UserPosts />} />
 					</Route>
 
-					<Route path='test' element={<Navigate to='/' />} />
+					<Route path='teams' element={<Navigate to='/users' />} />
 				</Route>
 				<Route path='*' element={<PageNotFound />} />
 			</Routes>

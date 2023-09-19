@@ -16,6 +16,10 @@ export const NavBar = () => {
 			title: 'Users',
 		},
 		{
+			src: '/colorPicker',
+			title: 'ColorPicker',
+		},
+		{
 			src: '/posts',
 			title: 'Posts',
 		},
