@@ -8,11 +8,14 @@ import { darkTheme, theme } from './styles/theme'
 import { ThemeProvider } from 'styled-components'
 import 'modern-normalize'
 import './index.css'
+import { BrowserRouter } from 'react-router-dom'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
 	<ThemeProvider theme={theme}>
-		<App />
+		<BrowserRouter>
+			<App />
+		</BrowserRouter>
 		<ToastContainer autoClose={1000} />
 		<GlobalStyles />
 	</ThemeProvider>
