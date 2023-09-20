@@ -9,12 +9,15 @@ import { ThemeProvider } from 'styled-components'
 import 'modern-normalize'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
+import AuthProvider from './context/AuthProvider'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
 	<ThemeProvider theme={theme}>
 		<BrowserRouter>
-			<App />
+			<AuthProvider>
+				<App />
+			</AuthProvider>
 		</BrowserRouter>
 		<ToastContainer autoClose={1000} />
 		<GlobalStyles />
