@@ -1,21 +1,24 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { Layout } from './components/Layout'
 import Homepage from './pages/Homepage.jsx'
-import About from './pages/About.jsx'
+// import About from './pages/About.jsx'
 import PageNotFound from './pages/PageNotFound'
 import Users from './pages/Users'
 import SingleUser from './pages/SingleUser'
 import UserPosts from './components/UserPosts'
 import { ColorPicker } from './components/ColorPicker/ColorPicker'
-import Posts from './pages/Posts'
+// import Posts from './pages/Posts'
 import SinglePost from './pages/SinglePost'
-import Comments from './components/Comments'
-import { useAuth } from './hooks/useAuth'
+// import Comments from './components/Comments'
 import Login from './components/Login/Login'
 import PrivateRoute from './routes/PrivateRoute'
+import { lazy } from 'react'
+
+const About = lazy(() => import('./pages/About.jsx'))
+const Posts = lazy(() => import('./pages/Posts.jsx'))
+const Comments = lazy(() => import('./components/Comments'))
 
 const App = () => {
-	const { isLoggedIn } = useAuth()
 	return (
 		<Routes>
 			<Route path='/' element={<Layout />}>

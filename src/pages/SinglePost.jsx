@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { Suspense, useRef } from 'react'
 import { useHttp } from '../hooks/useHttp'
 import { getPostById } from '../service/api'
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom'
@@ -27,7 +27,9 @@ const SinglePost = () => {
 			<p>{data?.body}</p>
 			<hr />
 			<Link to='comments'>Show comments by post</Link>
-			<Outlet />
+			<Suspense fallback={<h1>lOADING ANOTHER SUSPENSE</h1>}>
+				<Outlet />
+			</Suspense>
 		</div>
 	)
 }

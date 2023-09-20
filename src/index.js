@@ -14,11 +14,11 @@ import AuthProvider from './context/AuthProvider'
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
 	<ThemeProvider theme={theme}>
-		<BrowserRouter>
-			<AuthProvider>
+		<AuthProvider>
+			<BrowserRouter>
 				<App />
-			</AuthProvider>
-		</BrowserRouter>
+			</BrowserRouter>
+		</AuthProvider>
 		<ToastContainer autoClose={1000} />
 		<GlobalStyles />
 	</ThemeProvider>
