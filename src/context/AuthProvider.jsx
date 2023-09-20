@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react'
+import { toast } from 'react-toastify'
 
 export const AuthContext = createContext()
 
@@ -10,6 +11,7 @@ const AuthProvider = ({ children }) => {
 	}
 	const logout = () => {
 		setUser('')
+		toast.success('Logout is done!')
 	}
 
 	const isLoggedIn = Boolean(user)

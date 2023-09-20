@@ -4,18 +4,19 @@ import styled from 'styled-components'
 import StyledLabel from '../../styledComponents/StyledLabel'
 import StyledButton from '../../styledComponents/StyledButton'
 import { useAuth } from '../../hooks/useAuth'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const Login = () => {
 	const { login } = useAuth()
 	const [name, setName] = useState('')
 	const [surname, setSurname] = useState('')
 	const [email, setEmail] = useState('')
+	const location = useLocation()
 	const navigate = useNavigate()
 	const onSubmit = e => {
 		e.preventDefault()
 		login(name)
-		navigate('/posts')
+		navigate(location.state?.from)
 		setName('')
 		setSurname('')
 		setEmail('')

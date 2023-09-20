@@ -12,34 +12,45 @@ import SinglePost from './pages/SinglePost'
 import Comments from './components/Comments'
 import { useAuth } from './hooks/useAuth'
 import Login from './components/Login/Login'
+import PrivateRoute from './routes/PrivateRoute'
 
 const App = () => {
 	const { isLoggedIn } = useAuth()
-	return isLoggedIn ? (
+	return (
 		<Routes>
 			<Route path='/' element={<Layout />}>
 				<Route index element={<Homepage />} />
 				<Route path='about' element={<About />} />
 				<Route path='users' element={<Users />} />
 				<Route path='posts' element={<Posts />} />
+				<Route path='/login' element={<Login />} />
 				<Route path='posts/:postId' element={<SinglePost />}>
 					<Route path='comments' element={<Comments />} />
 				</Route>
-				<Route path='colorPicker' element={<ColorPicker />} />
+				<Route
+					path='colorPicker'
+					element={
+						<PrivateRoute>
+							<ColorPicker />
+						</PrivateRoute>
+					}
+				/>
 
 				<Route path='users/:id' element={<SingleUser />}>
 					<Route path='address' element={<h2>User address</h2>} />
-					<Route path='posts' element={<UserPosts />} />
+					<Route
+						path='posts'
+						element={
+							<PrivateRoute>
+								<UserPosts />
+							</PrivateRoute>
+						}
+					/>
 				</Route>
 
 				<Route path='teams' element={<Navigate to='/users' />} />
 			</Route>
 			<Route path='*' element={<PageNotFound />} />
-		</Routes>
-	) : (
-		<Routes>
-			<Route path='/' element={<Login />} />
-			<Route path='*' element={<Navigate to='/' />} />
 		</Routes>
 	)
 }
