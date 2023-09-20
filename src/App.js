@@ -1,4 +1,4 @@
-import { Link, Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import { Layout } from './components/Layout'
 import Homepage from './pages/Homepage.jsx'
 import About from './pages/About.jsx'
@@ -7,6 +7,9 @@ import Users from './pages/Users'
 import SingleUser from './pages/SingleUser'
 import UserPosts from './components/UserPosts'
 import { ColorPicker } from './components/ColorPicker/ColorPicker'
+import Posts from './pages/Posts'
+import SinglePost from './pages/SinglePost'
+import Comments from './components/Comments'
 
 const App = () => {
 	return (
@@ -16,11 +19,12 @@ const App = () => {
 					<Route index element={<Homepage />} />
 					<Route path='about' element={<About />} />
 					<Route path='users' element={<Users />} />
+					<Route path='posts' element={<Posts />} />
+					<Route path='posts/:postId' element={<SinglePost />}>
+						<Route path='comments' element={<Comments />} />
+					</Route>
 					<Route path='colorPicker' element={<ColorPicker />} />
 
-					{/* users/11 */}
-					{/* users/11/address */}
-					{/* users/11/posts */}
 					<Route path='users/:id' element={<SingleUser />}>
 						<Route path='address' element={<h2>User address</h2>} />
 						<Route path='posts' element={<UserPosts />} />

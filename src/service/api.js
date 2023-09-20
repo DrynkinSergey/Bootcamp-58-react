@@ -16,3 +16,15 @@ export const getPostsByUserID = async id => {
 	const { data } = await axios.get(`https://dummyjson.com/posts/user/${id}`)
 	return data.posts
 }
+export const getPostsByQuery = async query => {
+	const { data } = await axios.get(`https://dummyjson.com/posts/search?q=${query}`)
+	return data.posts
+}
+export const getPostById = async postId => {
+	const { data } = await axios.get(`https://dummyjson.com/posts/${postId}`)
+	return data
+}
+export const getPostComments = async postId => {
+	const { data } = await axios.get(`https://dummyjson.com/posts/${postId}/comments`)
+	return data.comments
+}
