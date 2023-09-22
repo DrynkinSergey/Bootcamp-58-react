@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid'
-import { ADD_TODO, CLEAR, CLEAR_SELECTED, DELETE, TOGGLE_TODO } from './constants'
+import { ADD_TODO, CLEAR, CLEAR_SELECTED, DELETE, SET_FILTER, TOGGLE_TODO } from './constants'
 
 // Створюємо функції , котрі повертають об'єкт. Цей об'єкт називається ACTION.
 // В нього має бути обов'язково type!!!!!
@@ -23,3 +23,5 @@ export const toggleTodo = id => ({ type: TOGGLE_TODO, payload: id })
 export const clearTodos = () => ({ type: CLEAR })
 
 export const clearSelected = () => ({ type: CLEAR_SELECTED })
+
+export const setFilterStr = activeFilter => ({ type: SET_FILTER, payload: activeFilter })

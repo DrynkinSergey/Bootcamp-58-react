@@ -1,4 +1,4 @@
-import { ADD_TODO, CLEAR, CLEAR_SELECTED, DELETE, TOGGLE_TODO } from './constants'
+import { ADD_TODO, CLEAR, CLEAR_SELECTED, DELETE, SET_FILTER, TOGGLE_TODO } from './constants'
 
 // Створюємо початковий стейт для редьюсера
 const initialState = {
@@ -38,6 +38,11 @@ export const todoReducer = (state = initialState, action) => {
 			return {
 				...state,
 				todos: state.todos.filter(item => !item.completed),
+			}
+		case SET_FILTER:
+			return {
+				...state,
+				filter: action.payload,
 			}
 		// Якщо жоден з екшенів не знайден, треба повернути стейт незмінним
 		default:
