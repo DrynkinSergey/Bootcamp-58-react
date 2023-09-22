@@ -8,6 +8,6 @@ import { todoReducer } from './todoList/reducer'
 // Створюємо рут редьюсер (ОДИН великий) за допомогою метода combineReducers
 // CombineReducers включає в себе об'єкт, в якому ключ - це назва редьюсер, значення - це сам редьюсер
 export const rootReducer = combineReducers({
-	counter: counterReducer,
+	count: counterReducer,
 	todos: todoReducer,
 })
