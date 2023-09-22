@@ -8,8 +8,8 @@ const App = () => {
 	return (
 		<div>
 			{/* <Posts /> */}
-			{/* <TodoList /> */}
-			<Counter />
+			<TodoList />
+			{/* <Counter /> */}
 			{/* <ColorPicker /> */}
 		</div>
 	)
