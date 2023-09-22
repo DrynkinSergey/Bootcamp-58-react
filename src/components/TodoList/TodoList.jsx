@@ -1,30 +1,9 @@
 import { StyledInput, StyledTodo, StyledTodoList } from './TodoList.styled'
-import { Flex } from '../../styles/GlobalStyles'
-import { useDispatch, useSelector } from 'react-redux'
-import { addTodo, clearSelected, clearTodos, deleteTodo, toggleTodo } from '../../redux/todoList/actions'
-import { toast } from 'react-toastify'
 import AddForm from './AddForm'
+import { useTodos } from '../../hooks/useTodos'
 
 export const TodoList = () => {
-	const { todos } = useSelector(state => state.todos)
-	const dispatch = useDispatch()
-	const hanldeDeleteTodo = id => {
-		dispatch(deleteTodo(id))
-		toast.success('You delete todo')
-	}
-	const handleAddTodo = title => {
-		dispatch(addTodo(title))
-	}
-	const handleToggle = id => {
-		dispatch(toggleTodo(id))
-	}
-	const clearAllTodos = () => {
-		dispatch(clearTodos())
-	}
-	const clearSelectedTodos = () => {
-		dispatch(clearSelected())
-	}
-
+	const { clearSelectedTodos, clearAllTodos, handleAddTodo, handleToggle, hanldeDeleteTodo, todos } = useTodos()
 	return (
 		<>
 			<StyledTodoList>
