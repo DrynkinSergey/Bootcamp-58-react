@@ -7,7 +7,7 @@ export const TodoList = () => {
 	const { clearSelectedTodos, clearAllTodos, handleAddTodo, handleToggle, hanldeDeleteTodo, todos, setFilter } =
 		useTodos()
 	const access = 'dasdfsf2321sd' === process.env.REACT_APP_MY_SECRET_KEY
-	console.log(access)
+
 	return (
 		<>
 			<StyledTodoList>

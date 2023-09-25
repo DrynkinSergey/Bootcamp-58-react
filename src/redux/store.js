@@ -1,12 +1,10 @@
 // Імпортуємо метод для створення стору
 import { createStore } from 'redux'
-// Імпортуємо рут редьюсер ( один редьюсер, котрий збирає декілька в одну кучку)
-import { rootReducer } from './rootReducer'
 // Імпортуємо з бібліотеки метод для підключення дев тулз
 import { devToolsEnhancer } from '@redux-devtools/extension'
 import { configureStore } from '@reduxjs/toolkit'
-import { counterReducer } from './counter/reducer'
-import { todoReducer } from './todoList/reducer'
+import { counterReducer } from './counter/slice'
+import { todoReducer } from './todoList/slice'
 
 // Створюємо екземпляр енхенсера ( посилювач або по суті сам девтулз)
 const enhancer = devToolsEnhancer()

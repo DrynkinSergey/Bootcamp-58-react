@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { decrement, increment, reset, setStep } from '../redux/counter/actions'
 import { toast } from 'react-toastify'
 import { selectCounter, selectStep } from '../redux/counter/selectors'
+import { decrement, increment, reset, setStep } from '../redux/counter/slice'
 
 export const useCounter = () => {
 	const counter = useSelector(selectCounter)
