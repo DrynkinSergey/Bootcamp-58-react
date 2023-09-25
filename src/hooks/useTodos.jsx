@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { addTodo } from '../redux/todoList/actions'
+
 import { toast } from 'react-toastify'
 import { selectFilter, selectTodos } from '../redux/todoList/selectors'
-import { clearSelected, clearTodos, deleteTodo, setFilterStr, toggleTodo } from '../redux/todoList/slice'
+import { addTodo, clearSelected, clearTodos, deleteTodo, setFilterStr, toggleTodo } from '../redux/todoList/slice'
 
 export const useTodos = () => {
 	const todos = useSelector(selectTodos)

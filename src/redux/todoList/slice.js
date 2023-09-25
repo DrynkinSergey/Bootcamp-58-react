@@ -42,4 +42,4 @@ const slice = createSlice({
 })
 
 export const todoReducer = slice.reducer
-export const { deleteTodo, toggleTodo, clearSelected, clearTodos, setFilterStr } = slice.actions
+export const { deleteTodo, toggleTodo, clearSelected, clearTodos, addTodo, setFilterStr } = slice.actions
