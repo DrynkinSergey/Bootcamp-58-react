@@ -4,6 +4,7 @@ import { StyledInput } from './TodoList.styled'
 
 const AddForm = ({ addTodo }) => {
 	const [value, setValue] = useState()
+	
 	const submit = e => {
 		e.preventDefault()
 		addTodo(value)
