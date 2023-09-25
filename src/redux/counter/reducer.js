@@ -1,6 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit'
 import { decrement, increment, reset, setStep } from './actions'
-import { DECREMENT, INCREMENT, RESET, SET_STEP } from './constants'
 
 const initialState = {
 	counter: 1,
