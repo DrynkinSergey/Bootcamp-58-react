@@ -1,4 +1,3 @@
-import React, { useContext } from 'react'
 import Posts from './components/Posts/Posts'
 import { Counter } from './components/Counter/Counter'
 import { TodoList } from './components/TodoList/TodoList'
@@ -8,8 +7,8 @@ const App = () => {
 	return (
 		<div>
 			{/* <Posts /> */}
-			<TodoList />
-			{/* <Counter /> */}
+			{/* <TodoList /> */}
+			<Counter />
 			{/* <ColorPicker /> */}
 		</div>
 	)
