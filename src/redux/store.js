@@ -1,31 +1,28 @@
-// Імпортуємо метод для створення стору
-import { createStore } from 'redux'
-// Імпортуємо з бібліотеки метод для підключення дев тулз
-import { devToolsEnhancer } from '@redux-devtools/extension'
 import { configureStore } from '@reduxjs/toolkit'
 import { counterReducer } from './counter/slice'
 import { todoReducer } from './todoList/slice'
+import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 
-// Створюємо екземпляр енхенсера ( посилювач або по суті сам девтулз)
-const enhancer = devToolsEnhancer()
-// Створюємо стор для того , щоб використати його в index.js
-// Він приймає першим аргументом наш редьюсер, або рут редьюсер (башато штук)
-// export const store = createStore(
-// 	// Перший аргумент
-// 	rootReducer,
-// 	// Підключення девтулз
-// 	enhancer
-// 	// Підключення девтулз якщо, не ставили npm пакет
-// 	// МОжна використовувати на вибір
-// 	// window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-// )
+const persistConfig = {
+	key: 'root',
+	version: 1,
+	storage,
+}
 
+const persistedReducer = persistReducer(persistConfig, todoReducer)
 export const store = configureStore({
 	reducer: {
 		count: counterReducer,
-		todos: todoReducer,
+		todos: persistedReducer,
 	},
+	middleware: getDefaultMiddleware =>
+		getDefaultMiddleware({
+			serializableCheck: {
+				ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+			},
+		}),
 	devTools: process.env.NODE_ENV !== 'production',
 })
 
-console.log(process.env)
+export const persistor = persistStore(store)
