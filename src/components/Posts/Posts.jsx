@@ -6,32 +6,24 @@ import { WrapperPosts } from './Posts.styled'
 import { Button } from './Button'
 import { Spinner } from './Spinner'
 import { toast } from 'react-toastify'
+import { useDispatch, useSelector } from 'react-redux'
+import { getPosts } from '../../redux/posts/slice'
+import Form from './Form'
 
 const Posts = () => {
-	// useEffect(() => {
-	// 	const getPostsFn = async fnType => {
-
-	// 		try {
-	// 			const { posts, limit } = await fnType({ limit: limitValue, skip, q: query })
-	// 		} catch (error) {
-	// 			alert(error.message)
-	// 		} finally {
-	// 			toast.success('You data is ready!')
-	// 		}
-	// 	}
-	// 	if (query) {
-	// 		getPostsFn(fetchPostsByQuery)
-	// 	} else {
-	// 		getPostsFn(fetchPosts)
-	// 	}
-	// }, [])
+	const dispatch = useDispatch()
+	useEffect(() => {
+		fetchPosts().then(res => dispatch(getPosts(res)))
+	}, [dispatch])
+	const { posts } = useSelector(state => state.posts)
 
 	return (
 		<>
 			<Header />
+			<Form />
 			<WrapperPosts>
 				<h1>Your query is: </h1>
-				<PostList posts={[]} />
+				<PostList posts={posts} />
 				<Button disabled={'loading'} $bg='teal'>
 					Load more
 				</Button>

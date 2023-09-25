@@ -3,6 +3,7 @@ import { counterReducer } from './counter/slice'
 import { todoReducer } from './todoList/slice'
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import { postsReducer } from './posts/slice'
 
 const persistConfig = {
 	key: 'root',
@@ -15,6 +16,7 @@ export const store = configureStore({
 	reducer: {
 		count: counterReducer,
 		todos: persistedReducer,
+		posts: postsReducer,
 	},
 	middleware: getDefaultMiddleware =>
 		getDefaultMiddleware({

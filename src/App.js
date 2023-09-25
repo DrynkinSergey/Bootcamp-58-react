@@ -6,8 +6,8 @@ import { StyledFlex } from './styledComponents/StyledFlex'
 const App = () => {
 	return (
 		<div>
-			{/* <Posts /> */}
-			<TodoList />
+			<Posts />
+			{/* <TodoList /> */}
 			{/* <Counter /> */}
 			{/* <ColorPicker /> */}
 		</div>

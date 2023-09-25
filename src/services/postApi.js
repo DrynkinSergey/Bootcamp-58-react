@@ -10,7 +10,7 @@ export const fetchPosts = async params => {
 			...params,
 		},
 	})
-	return data
+	return data.posts
 }
 export const fetchPostsByQuery = async params => {
 	const { data } = await dummyInstance.get('/posts/search', {
