@@ -1,17 +1,7 @@
-import Posts from './components/Posts/Posts'
-import { Counter } from './components/Counter/Counter'
-import { TodoList } from './components/TodoList/TodoList'
-import { StyledFlex } from './styledComponents/StyledFlex'
+import React from 'react'
 
 const App = () => {
-	return (
-		<div>
-			<Posts />
-			{/* <TodoList /> */}
-			{/* <Counter /> */}
-			{/* <ColorPicker /> */}
-		</div>
-	)
+	return <div>App</div>
 }
 
 export default App
