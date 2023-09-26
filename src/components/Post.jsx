@@ -1,15 +1,23 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
-import { deletePost } from '../redux/postsSlice'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { deletePost, moveLeft, moveRight } from '../redux/postsSlice'
 import { Link, useNavigate } from 'react-router-dom'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { selectIsAgree, selectPosts } from '../redux/selectors'
+import { open } from '../redux/modalGlobal'
 
-const Post = ({ id, title = 'Title post', body, tag }) => {
+const Post = ({ id, title = 'Title post', body, tag, idx }) => {
 	const dispatch = useDispatch()
+	const posts = useSelector(selectPosts)
+	const isAgree = useSelector(selectIsAgree)
+	isAgree && dispatch(deletePost(id))
 
 	const removePost = () => {
-		dispatch(deletePost(id))
+		dispatch(open())
 	}
-
+	const moveTo = direction => {
+		direction === 'left' ? dispatch(moveLeft(id)) : dispatch(moveRight(id))
+	}
 	return (
 		<div className='card w-full  bg-primary text-primary-content'>
 			<div className='card-body'>
@@ -26,6 +34,10 @@ const Post = ({ id, title = 'Title post', body, tag }) => {
 					<button onClick={removePost} className='text-xs md:text-md btn btn-error'>
 						Delete
 					</button>
+				</div>
+				<div className='flex'>
+					{idx !== 0 && <ChevronLeft onClick={() => moveTo('left')} />}
+					{idx + 1 !== posts.length && <ChevronRight onClick={() => moveTo('right')} />}
 				</div>
 			</div>
 		</div>

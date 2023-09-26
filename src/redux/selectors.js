@@ -4,3 +4,7 @@ export const selectPostById = (state, id) => state.postsList.posts.find(post => 
 
 //filter
 export const selectFilter = state => state.filter
+
+// modal
+export const selectIsOpen = state => state.modal.isOpen
+export const selectIsAgree = state => state.modal.isAgree
