@@ -1,5 +1,10 @@
-@import-normalize;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Coming+Soon&family=Montserrat:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 .big{
   font-size: 1rem;
+}
+.active {
+  color: blue;
 }
