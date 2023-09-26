@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { addPost } from '../redux/postsSlice'
 import { nanoid } from 'nanoid'
+import { toast } from 'react-toastify'
 
 const Form = () => {
 	const navigate = useNavigate()
@@ -16,6 +17,7 @@ const Form = () => {
 
 	const submit = data => {
 		dispatch(addPost({ ...data, id: nanoid() }))
+		toast.success('Congratulation!!')
 		navigate('/posts')
 	}
 	const cancelClick = () => {

@@ -8,3 +8,6 @@
 .active {
   color: blue;
 }
+body{
+  overflow-x: hidden;
+}
