@@ -13,7 +13,8 @@ const Post = ({ id, title = 'Title post', body, tag, idx }) => {
 	isAgree && dispatch(deletePost(id))
 
 	const removePost = () => {
-		dispatch(open())
+		// dispatch(open())
+		dispatch(deletePost(id))
 	}
 	const moveTo = direction => {
 		direction === 'left' ? dispatch(moveLeft(id)) : dispatch(moveRight(id))
