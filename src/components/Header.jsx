@@ -15,7 +15,7 @@ export const Header = () => {
 		dispatch(setFilter(''))
 	}
 	return (
-		<div className='navbar bg-base-100'>
+		<div className='navbar grid md:grid-cols-2 bg-base-100'>
 			<div className='flex-1'>
 				<NavLink to='/' className='btn btn-ghost normal-case text-xl'>
 					Home
@@ -27,7 +27,7 @@ export const Header = () => {
 					Add Post
 				</NavLink>
 			</div>
-			<div className='flex-none gap-2'>
+			<div className='flex-none gap-2 mx-auto '>
 				<div className='form-control relative'>
 					<input
 						value={filter}

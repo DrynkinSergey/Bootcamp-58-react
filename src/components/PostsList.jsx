@@ -13,9 +13,9 @@ const PostsList = () => {
 	}
 
 	return (
-		<div className='px-[200px] py-4'>
+		<div className='md:px-[50px] px-2 py-4'>
 			<h1 className='text-center text-5xl py-2 font-bold'>Posts</h1>
-			<ul className='grid gap-3 grid-cols-2'>
+			<ul className='grid gap-3 md:grid-cols-2 lg:grid-cols-3'>
 				{getFilteredData(filter, posts).map(post => (
 					<Post key={post.id} {...post} />
 				))}
