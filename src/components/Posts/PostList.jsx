@@ -12,7 +12,7 @@ export const PostList = ({ posts = [] }) => {
 			<h2>Our cute posts base</h2>
 			<Wrapper>
 				{loading && <h1>Loading</h1>}
-				{error && <h1>{error}</h1>}
+				{/* {error && <h1>{error}</h1>} */}
 				{posts.map(item => (
 					<SinglePost key={item.id} {...item} />
 				))}

@@ -1,16 +1,25 @@
 import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { toast } from 'react-toastify'
 
 axios.defaults.baseURL = 'https://6513d1618e505cebc2ea317b.mockapi.io/'
 
 export const fetchPosts = createAsyncThunk('fetchPosts', async (_, thunkAPI) => {
-	const res = await axios.get('posts')
-	if (res.statusText !== 'OK') {
-		return thunkAPI.rejectWithValue('Smth went wrong')
+	try {
+		const res = await axios.get('posts')
+		return res.data
+	} catch (error) {
+		return thunkAPI.rejectWithValue(error.message)
 	}
-	return res.data
 })
 export const addPostThunk = createAsyncThunk('addPost', async (body, thunkAPI) => {
+	const posts = thunkAPI.getState().posts.posts
+	const item = posts.find(post => post.title === body.title)
+	if (item) {
+		toast.error('ERrror')
+		return thunkAPI.rejectWithValue('Post is exist')
+	}
+
 	try {
 		const { data } = await axios.post('posts', body)
 		return data
@@ -22,6 +31,15 @@ export const addPostThunk = createAsyncThunk('addPost', async (body, thunkAPI) =
 export const deletePostThunk = createAsyncThunk('deletePost', async (id, thunkAPI) => {
 	try {
 		const { data } = await axios.delete(`posts/${id}`)
+		return data
+	} catch (error) {
+		return thunkAPI.rejectWithValue(error.message)
+	}
+})
+
+export const updatePostThunk = createAsyncThunk('updatePost', async (body, thunkAPI) => {
+	try {
+		const { data } = await axios.put(`posts/${body.id}`, body)
 		return data
 	} catch (error) {
 		return thunkAPI.rejectWithValue(error.message)
