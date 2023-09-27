@@ -14,8 +14,8 @@ export const TodoList = () => {
 				<Filter setFilter={setFilter} />
 				{todos.map((item, idx) => (
 					<StyledTodo key={item.id}>
-						<input onChange={() => handleToggle(item.id)} type='checkbox' checked={item.completed} />
-						<span>{item.todo}</span>
+						<input onChange={() => handleToggle(item)} type='checkbox' checked={item.completed} />
+						<span>{item.title}</span>
 						<button onClick={() => hanldeDeleteTodo(item.id)}>Delete</button>
 					</StyledTodo>
 				))}

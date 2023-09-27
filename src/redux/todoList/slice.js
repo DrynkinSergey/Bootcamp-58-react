@@ -1,27 +1,13 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit'
+import { fetchTodosThunk } from './operations'
 const initialState = {
-	todos: [{ todo: 'REACT', id: 1, completed: true }],
+	todos: [],
 	filter: 'all',
 }
 const slice = createSlice({
 	name: 'todos',
 	initialState,
 	reducers: {
-		addTodo: {
-			prepare: title => {
-				return {
-					payload: {
-						id: nanoid(),
-						completed: false,
-						todo: title,
-						createdAt: new Date().toLocaleTimeString(),
-					},
-				}
-			},
-			reducer: (state, action) => {
-				state.todos.push(action.payload)
-			},
-		},
 		deleteTodo: (state, action) => {
 			state.todos = state.todos.filter(item => item.id !== action.payload)
 		},
@@ -39,7 +25,12 @@ const slice = createSlice({
 			state.filter = action.payload
 		},
 	},
+	extraReducers: builder => {
+		builder.addCase(fetchTodosThunk.fulfilled, (state, action) => {
+			state.todos = action.payload
+		})
+	},
 })
 
 export const todoReducer = slice.reducer
-export const { deleteTodo, toggleTodo, clearSelected, clearTodos, addTodo, setFilterStr } = slice.actions
+export const { deleteTodo, toggleTodo, clearSelected, clearTodos, setFilterStr } = slice.actions

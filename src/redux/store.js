@@ -23,6 +23,6 @@ export const store = configureStore({
 		todos: todoReducer,
 		posts: postsReducer,
 	},
-	middleware: getDefaultMiddleware => getDefaultMiddleware().concat(logger),
+	middleware: getDefaultMiddleware => getDefaultMiddleware().concat(myLogger),
 	devTools: process.env.NODE_ENV !== 'production',
 })

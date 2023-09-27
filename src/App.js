@@ -4,8 +4,8 @@ import { TodoList } from './components/TodoList/TodoList'
 const App = () => {
 	return (
 		<div>
-			<Posts />
-			{/* <TodoList /> */}
+			{/* <Posts /> */}
+			<TodoList />
 		</div>
 	)
 }
