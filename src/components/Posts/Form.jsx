@@ -1,14 +1,13 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import { addPost } from '../../redux/posts/slice'
-import { nanoid } from '@reduxjs/toolkit'
+import { addPostThunk } from '../../redux/posts/operations'
 const Form = () => {
 	const { register, handleSubmit } = useForm()
 	const dispatch = useDispatch()
 	const submit = data => {
 		console.log(data)
-		dispatch(addPost({ ...data, id: nanoid() }))
+		dispatch(addPostThunk(data))
 	}
 	return (
 		<form onSubmit={handleSubmit(submit)}>

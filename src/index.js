@@ -9,16 +9,13 @@ import { ThemeProvider } from 'styled-components'
 import 'modern-normalize'
 import './index.css'
 import { Provider } from 'react-redux'
-import { persistor, store } from './redux/store'
-import { PersistGate } from 'redux-persist/integration/react'
+import { store } from './redux/store'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
 	<ThemeProvider theme={theme}>
 		<Provider store={store}>
-			<PersistGate loading={null} persistor={persistor}>
-				<App />
-			</PersistGate>
+			<App />
 		</Provider>
 		<ToastContainer autoClose={1000} />
 		<GlobalStyles />

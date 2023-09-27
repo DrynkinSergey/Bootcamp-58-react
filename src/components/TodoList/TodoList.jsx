@@ -6,7 +6,6 @@ import Filter from '../Filter/Filter'
 export const TodoList = () => {
 	const { clearSelectedTodos, clearAllTodos, handleAddTodo, handleToggle, hanldeDeleteTodo, todos, setFilter } =
 		useTodos()
-	const access = 'dasdfsf2321sd' === process.env.REACT_APP_MY_SECRET_KEY
 
 	return (
 		<>
