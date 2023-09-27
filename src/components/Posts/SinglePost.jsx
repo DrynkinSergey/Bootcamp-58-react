@@ -1,8 +1,7 @@
 import React from 'react'
 import { Card } from './Posts.styled'
 import { useDispatch } from 'react-redux'
-import { deletePost } from '../../redux/posts/slice'
-import { deletePostThunk, updatePostThunk } from '../../redux/posts/operations'
+import { deletePostThunk } from '../../redux/posts/operations'
 
 export const SinglePost = ({ id, title, body }) => {
 	const dispatch = useDispatch()
@@ -10,7 +9,7 @@ export const SinglePost = ({ id, title, body }) => {
 		dispatch(deletePostThunk(id))
 	}
 	const handleUpdate = () => {
-		dispatch(updatePostThunk({ id, body, title: 'THUNk' }))
+		// dispatch(updatePostThunk({ id, body, title: 'THUNk' }))
 	}
 	return (
 		<Card onClick={handleUpdate}>
