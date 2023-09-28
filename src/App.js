@@ -1,5 +1,5 @@
 import Posts from './components/Posts/Posts'
-import Todolist from './components/Todolist/Todolist'
+import Todolist from './components/TodolistRTK/Todolist'
 
 const App = () => {
 	return (

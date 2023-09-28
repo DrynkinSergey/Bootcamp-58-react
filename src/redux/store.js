@@ -4,6 +4,7 @@ import { postsReducer } from './posts/slice'
 import { toast } from 'react-toastify'
 import logger from 'redux-logger'
 import { todoApi } from './RTKQuery/todoApi'
+import { setupListeners } from '@reduxjs/toolkit/query'
 const myLogger = store => next => action => {
 	if (action.payload?.title === 'Angular') {
 		action.payload.title = 'React'
@@ -28,3 +29,5 @@ export const store = configureStore({
 	middleware: getDefaultMiddleware => getDefaultMiddleware().concat(todoApi.middleware),
 	devTools: process.env.NODE_ENV !== 'production',
 })
+
+setupListeners(store.dispatch)
