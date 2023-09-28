@@ -1,36 +1,40 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit'
-import { fetchTodosThunk } from './operations'
+import { fetchTodosThunk, toggleTodoThunk } from './operations'
 const initialState = {
 	todos: [],
 	filter: 'all',
+	testValue: '',
+	loading: false,
+	currentItem: null,
 }
 const slice = createSlice({
 	name: 'todos',
 	initialState,
 	reducers: {
-		deleteTodo: (state, action) => {
-			state.todos = state.todos.filter(item => item.id !== action.payload)
-		},
-		toggleTodo: (state, action) => {
-			const item = state.todos.find(item => item.id === action.payload)
-			item.completed = !item.completed
-		},
-		clearTodos: (state, action) => {
-			state.todos = []
-		},
-		clearSelected: (state, action) => {
-			state.todos = state.todos.filter(item => !item.completed)
-		},
 		setFilterStr: (state, action) => {
 			state.filter = action.payload
 		},
+		setValue: (state, action) => {
+			state.testValue = action.payload
+		},
+		setCurrentItem: (state, action) => {
+			state.currentItem = action.payload
+		},
 	},
 	extraReducers: builder => {
-		builder.addCase(fetchTodosThunk.fulfilled, (state, action) => {
-			state.todos = action.payload
-		})
+		builder
+			.addCase(fetchTodosThunk.fulfilled, (state, action) => {
+				state.todos = action.payload
+			})
+			.addCase(toggleTodoThunk.pending, (state, { payload }) => {
+				state.loading = true
+			})
+			.addCase(toggleTodoThunk.fulfilled, (state, { payload }) => {
+				state.loading = false
+				state.currentItem = null
+			})
 	},
 })
 
 export const todoReducer = slice.reducer
-export const { deleteTodo, toggleTodo, clearSelected, clearTodos, setFilterStr } = slice.actions
+export const { setFilterStr, setValue, setCurrentItem } = slice.actions
