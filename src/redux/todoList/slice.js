@@ -25,13 +25,13 @@ const slice = createSlice({
 		builder
 			.addCase(fetchTodosThunk.fulfilled, (state, action) => {
 				state.todos = action.payload
+				state.currentItem = null
 			})
 			.addCase(toggleTodoThunk.pending, (state, { payload }) => {
 				state.loading = true
 			})
 			.addCase(toggleTodoThunk.fulfilled, (state, { payload }) => {
 				state.loading = false
-				state.currentItem = null
 			})
 	},
 })

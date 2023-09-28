@@ -3,6 +3,7 @@ import { todoReducer } from './todoList/slice'
 import { postsReducer } from './posts/slice'
 import { toast } from 'react-toastify'
 import logger from 'redux-logger'
+import { todoApi } from './RTKQuery/todoApi'
 const myLogger = store => next => action => {
 	if (action.payload?.title === 'Angular') {
 		action.payload.title = 'React'
@@ -22,7 +23,8 @@ export const store = configureStore({
 	reducer: {
 		todos: todoReducer,
 		posts: postsReducer,
+		[todoApi.reducerPath]: todoApi.reducer,
 	},
-	middleware: getDefaultMiddleware => getDefaultMiddleware().concat(myLogger),
+	middleware: getDefaultMiddleware => getDefaultMiddleware().concat(todoApi.middleware),
 	devTools: process.env.NODE_ENV !== 'production',
 })
