@@ -10,6 +10,7 @@ export const fetchTodosThunk = createAsyncThunk('fetchTodos', async (_, thunkApi
 	return data
 })
 export const addTodoThunk = createAsyncThunk('addTodo', async (body, thunkApi) => {
+	console.log(body)
 	await todos.post('/todos', body)
 	thunkApi.dispatch(fetchTodosThunk())
 })
