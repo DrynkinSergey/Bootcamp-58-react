@@ -10,12 +10,17 @@ import 'modern-normalize'
 import './index.css'
 import { Provider } from 'react-redux'
 import { store } from './redux/store'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
 	<ThemeProvider theme={theme}>
 		<Provider store={store}>
-			<App />
+			<QueryClientProvider client={queryClient}>
+				<App />
+			</QueryClientProvider>
 		</Provider>
 		<ToastContainer autoClose={1000} />
 		<GlobalStyles />
