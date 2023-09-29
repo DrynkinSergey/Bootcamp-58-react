@@ -2,6 +2,7 @@
 
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 export const goItApi = axios.create({
 	baseURL: 'https://goit-task-manager.herokuapp.com/',
@@ -41,4 +42,17 @@ export const logoutThunk = createAsyncThunk('logout', async (_, { rejectWithValu
 	} catch (error) {
 		return rejectWithValue(error.message)
 	}
+})
+export const refreshThunk = createAsyncThunk('refresh', async (_, { rejectWithValue, getState }) => {
+	const savedToken = getState().auth.token
+	if (!savedToken) {
+		toast.warning('Token is not exist')
+		return rejectWithValue('Token is not exist')
+	}
+	try {
+		setToken(savedToken)
+		const { data } = await goItApi.get('users/me')
+		console.log(data)
+		return data
+	} catch (error) {}
 })
