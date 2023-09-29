@@ -16,3 +16,12 @@ export const registerThunk = createAsyncThunk('register', async (credentials, th
 		return thunkApi.rejectWithValue(error.message)
 	}
 })
+
+export const loginThunk = createAsyncThunk('login', async (credentials, { rejectWithValue }) => {
+	try {
+		const { data } = await goItApi.post('/users/login', credentials)
+		return data
+	} catch (error) {
+		return rejectWithValue(error.message)
+	}
+})
