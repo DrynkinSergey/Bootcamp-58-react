@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import { selectCurrent, selectLoading } from '../../redux/todoList/selectors'
 import { useId } from 'react'
 
-export default function TodoItem({ id, title, completed }) {
+export default function TodoItem({ id, text, completed }) {
 	const dispatch = useDispatch()
 	const handleDelete = () => {
 		dispatch(deleteTodoThunk(id))
@@ -16,7 +16,7 @@ export default function TodoItem({ id, title, completed }) {
 	return (
 		<Card className={clsx('max-w-sm', completed ? 'bg-gray-200' : 'bg-white')}>
 			<h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
-				<p className={completed ? 'line-through' : ''}>{title}</p>
+				<p className={completed ? 'line-through' : ''}>{text}</p>
 			</h5>
 			<div className='flex items-center gap-2'>
 				{loading && current === id ? (
@@ -27,7 +27,7 @@ export default function TodoItem({ id, title, completed }) {
 				) : (
 					<>
 						<Checkbox
-							onChange={() => dispatch(toggleTodoThunk({ id, title, completed }))}
+							onChange={() => dispatch(toggleTodoThunk({ id, text, completed }))}
 							id={idInput}
 							checked={completed}
 						/>

@@ -9,7 +9,7 @@ import { fetchTodosThunk } from '../../redux/todoList/operations'
 const Todolist = () => {
 	const dispatch = useDispatch()
 	useEffect(() => {
-		// dispatch(fetchTodosThunk())
+		dispatch(fetchTodosThunk())
 	}, [dispatch])
 	const todos = useSelector(selectFilteredTodos)
 	const uncompletedTodos = useSelector(selectUncompleted)

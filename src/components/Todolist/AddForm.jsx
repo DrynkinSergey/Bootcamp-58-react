@@ -8,7 +8,7 @@ const AddForm = () => {
 	const [value, setValue] = useState('')
 	const submit = e => {
 		e.preventDefault()
-		dispatch(addTodoThunk({ title: value }))
+		dispatch(addTodoThunk({ text: value }))
 		setValue('')
 	}
 	return (

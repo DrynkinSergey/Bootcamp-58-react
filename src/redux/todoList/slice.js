@@ -1,5 +1,6 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit'
 import { fetchTodosThunk, toggleTodoThunk } from './operations'
+import { logoutThunk } from '../auth/operations'
 const initialState = {
 	todos: [],
 	filter: 'all',
@@ -32,6 +33,9 @@ const slice = createSlice({
 			})
 			.addCase(toggleTodoThunk.fulfilled, (state, { payload }) => {
 				state.loading = false
+			})
+			.addCase(logoutThunk.fulfilled, (state, action) => {
+				state.todos = []
 			})
 	},
 })

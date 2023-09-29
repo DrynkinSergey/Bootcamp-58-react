@@ -1,13 +1,16 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { registerThunk } from '../redux/auth/operations'
 import { toast } from 'react-toastify'
 import { Link, useNavigate } from 'react-router-dom'
+import ButtonLoad from '../components/Button'
+import { selectLoading } from '../redux/auth/selectors'
 
 export const Register = () => {
 	const { handleSubmit, register, reset } = useForm()
 	const dispatch = useDispatch()
+	const isLoading = useSelector(selectLoading)
 	const navigate = useNavigate()
 	const submit = data => {
 		dispatch(registerThunk(data))
@@ -34,7 +37,7 @@ export const Register = () => {
 					Password
 					<input className='border-2 border-black' {...register('password')} />
 				</label>
-				<input className='border-2 border-black' type='submit' />
+				<ButtonLoad isLoading={isLoading} title='Register' />
 				<span>
 					You already have account? Let's{' '}
 					<Link to='/login' className='underline text-teal-500'>

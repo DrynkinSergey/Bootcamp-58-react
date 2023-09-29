@@ -1,21 +1,25 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { loginThunk, registerThunk } from '../redux/auth/operations'
 import { toast } from 'react-toastify'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import ButtonLoad from '../components/Button'
+import { selectLoading } from '../redux/auth/selectors'
 
 export const Login = () => {
-	const { handleSubmit, register, reset } = useForm()
+	const { handleSubmit, register } = useForm()
+	const isLoading = useSelector(selectLoading)
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
+	const location = useLocation()
 	const submit = data => {
 		dispatch(loginThunk(data))
 			.unwrap()
 			.then(res => {
 				console.log(res)
 				toast.success(`Welcome!${res.user.name}`)
-				navigate('/todos')
+				navigate(location.state?.from ?? '/')
 			})
 			.catch(() => toast.error('Data is not valid!'))
 	}
@@ -32,7 +36,8 @@ export const Login = () => {
 					Password
 					<input className='border-2 border-black' {...register('password')} />
 				</label>
-				<input className='border-2 border-black' type='submit' />
+				<ButtonLoad isLoading={isLoading} title='Login' />
+
 				<span>
 					You haven't account? Let's{' '}
 					<Link to='/register' className='underline text-teal-500'>
