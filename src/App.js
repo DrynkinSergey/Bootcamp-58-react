@@ -1,9 +1,11 @@
 import { Route, Routes } from 'react-router-dom'
 import { Home, Login, NotFound, Register, Todos } from './pages'
+import { Header } from './components/Header'
 
 const App = () => {
 	return (
 		<>
+			<Header />
 			<Routes>
 				<Route path='/' element={<Home />} />
 				<Route path='/todos' element={<Todos />} />
