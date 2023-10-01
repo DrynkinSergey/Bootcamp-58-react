@@ -1,8 +1,12 @@
 import { nanoid } from '@reduxjs/toolkit'
 import React, { useState } from 'react'
 import { List } from '../List/List'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectTables } from '../../redux/tables/selectors'
 
 export const Trello = () => {
+	const dispatch = useDispatch()
+	const { tables } = useSelector(selectTables)
 	const [data, setData] = useState([
 		{ id: '1', title: 'Buy book', table: 'todo' },
 		{ id: '2', title: 'Buy phone', table: 'done' },
@@ -26,35 +30,26 @@ export const Trello = () => {
 				console.log('error')
 		}
 	}
+	const addNew = title => {
+		setData(prev => [...prev, { id: nanoid(), title, table: 'todo' }])
+	}
 	const optionNames = ['todo', 'inProgress', 'done']
 	return (
 		<div>
 			<h1>Dashboard</h1>
-			<div className='grid grid-cols-3 gap-4 px-5 py-10'>
-				<List
-					optionNames={optionNames}
-					moveTo={moveTo}
-					handleDelete={handleDelete}
-					title='Todo'
-					currentTable='todo'
-					data={getData('todo')}
-				/>
-				<List
-					optionNames={optionNames}
-					moveTo={moveTo}
-					handleDelete={handleDelete}
-					title='In Progress'
-					currentTable='inProgress'
-					data={getData('inProgress')}
-				/>
-				<List
-					optionNames={optionNames}
-					moveTo={moveTo}
-					handleDelete={handleDelete}
-					title='Done'
-					currentTable='done'
-					data={getData('done')}
-				/>
+			<div className={`grid grid-cols-${tables.length}  gap-4 px-5 py-10`}>
+				{tables.map(table => (
+					<List
+						key={table}
+						addItem={addNew}
+						optionNames={optionNames}
+						moveTo={moveTo}
+						handleDelete={handleDelete}
+						title={table}
+						currentTable={table}
+						data={getData(table)}
+					/>
+				))}
 			</div>
 		</div>
 	)
