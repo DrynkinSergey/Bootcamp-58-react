@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { deleteFromTable, moveTo } from '../../redux/table/slice'
+import { selectTables } from '../../redux/tables/selectors'
 
-export const Item = ({ item, deleteItem, moveTo, currentTable, optionNames }) => {
-	const [selectName, setSelectName] = useState(currentTable)
+export const Item = ({ item, currentTable, optionNames }) => {
+	const dispatch = useDispatch()
 	const { title, id } = item
-	const handleChange = e => {
-		moveTo(id, selectName)
-	}
+	const { tables } = useSelector(selectTables)
 
 	return (
 		<li className='border-2   border-black p-2 shadow-lg flex justify-between'>
-			<span>{title}</span> <button onClick={deleteItem}>Delete</button>{' '}
-			<select onChange={e => moveTo(id, e.target.value)}>
+			<span>{title}</span> <button onClick={() => dispatch(deleteFromTable(item.id))}>Delete</button>{' '}
+			<select onChange={e => dispatch(moveTo({ id, table: e.target.value }))}>
 				<option disabled selected value=''>
 					Move to
 				</option>
-				{optionNames.map(
+				{tables.map(
 					item =>
 						item !== currentTable && (
 							<option key={item} value={item}>

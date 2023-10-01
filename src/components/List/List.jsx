@@ -2,23 +2,17 @@ import React from 'react'
 import { Item } from '../Item/Item'
 import { useDispatch } from 'react-redux'
 import { deleteTable } from '../../redux/tables/slice'
+import { addToTable } from '../../redux/table/slice'
 
-export const List = ({ data = [], addItem, currentTable, optionNames, moveTo, title, handleDelete }) => {
+export const List = ({ data = [], currentTable, title }) => {
 	const dispatch = useDispatch()
 	const addTodo = () => {
-		addItem({ title: 'text', table: title })
+		dispatch(addToTable({ title: 'text', table: title }))
 	}
 	let view = data.length ? (
 		<ul className='flex flex-col gap-4 min-h-[400px]'>
 			{data.map(item => (
-				<Item
-					currentTable={currentTable}
-					optionNames={optionNames}
-					key={item.id}
-					moveTo={moveTo}
-					deleteItem={() => handleDelete(item.id)}
-					item={item}
-				/>
+				<Item currentTable={currentTable} key={item.id} item={item} />
 			))}
 		</ul>
 	) : (
