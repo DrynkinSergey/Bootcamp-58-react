@@ -16,6 +16,12 @@ const persistConfigTable = {
 	version: 1,
 	storage,
 }
+const persistConfigAuth = {
+	key: 'root-auth',
+	version: 1,
+	storage,
+	whitelist: ['token'],
+}
 
 // const rootReducer = combineReducers({ tables: tablesReducer, table: tableReducer })
 // const persistedReducer = persistReducer(persistConfig, rootReducer)
@@ -24,7 +30,7 @@ export const store = configureStore({
 	reducer: {
 		tables: persistReducer(persistConfig, tablesReducer),
 		table: persistReducer(persistConfigTable, tableReducer),
-		auth: authReducer,
+		auth: persistReducer(persistConfigAuth, authReducer),
 	},
 	middleware: getDefaultMiddleware =>
 		getDefaultMiddleware({

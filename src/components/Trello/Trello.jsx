@@ -15,7 +15,7 @@ export const Trello = () => {
 		return data.filter(task => task.table === key)
 	}
 	return (
-		<div>
+		<div className='px-4'>
 			<header className='flex justify-between px-10 text-2xl items-center py-5'>
 				<h1>Welcome to Trello analog!</h1>
 				<button className='border-2 border-black px-8 py-2' onClick={open}>
