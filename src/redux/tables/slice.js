@@ -5,6 +5,14 @@ const slice = createSlice({
 	initialState: {
 		tables: ['todo', 'inProgress', 'done', 'test'],
 	},
-	reducers: {},
+	reducers: {
+		addTable: (state, { payload }) => {
+			state.tables.push(payload)
+		},
+		deleteTable: (state, { payload }) => {
+			state.tables = state.tables.filter(table => table !== payload)
+		},
+	},
 })
 export const tablesReducer = slice.reducer
+export const { addTable, deleteTable } = slice.actions
