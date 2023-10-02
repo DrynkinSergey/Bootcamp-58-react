@@ -10,8 +10,16 @@ const slice = createSlice({
 			{ id: 4, title: 'Redux', table: 'todo' },
 			{ id: 5, title: 'Js', table: 'done' },
 		],
-		reducers: {},
+	},
+	reducers: {
+		deleteTask: (state, { payload }) => {
+			state.tableData = state.tableData.filter(task => task.id !== payload)
+		},
+		addTask: (state, { payload }) => {
+			state.tableData.push(payload)
+		},
 	},
 })
 
 export const tableReducer = slice.reducer
+export const { deleteTask, addTask } = slice.actions

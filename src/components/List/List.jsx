@@ -3,9 +3,13 @@ import { Item } from '../Item/Item'
 import { Plus, XCircle } from 'lucide-react'
 import { useDispatch } from 'react-redux'
 import { deleteTable } from '../../redux/tables/slice'
+import { Modal } from '../Modal/Modal'
+import { TableDialogAdd } from '../TableDialog/TableDialogAdd'
+import useModal from '../../hooks/useModal'
 
 export const List = ({ data = [], title }) => {
 	const dispatch = useDispatch()
+	const { isOpen, open, close } = useModal()
 	const handleDeleteTable = () => {
 		dispatch(deleteTable(title))
 	}
@@ -28,9 +32,17 @@ export const List = ({ data = [], title }) => {
 				<h2 className='text-center py-8 text-teal-400 font-bold text-xl'>Empty table!</h2>
 			)}
 
-			<button className='flex border-2 border-black px-6 py-2 mx-auto my-10 hover:bg-teal-500 hover:text-white'>
+			<button
+				onClick={open}
+				className='flex border-2 border-black px-6 py-2 mx-auto my-10 hover:bg-teal-500 hover:text-white'
+			>
 				Add task <Plus />
 			</button>
+			{isOpen ? (
+				<Modal title='new task' close={close}>
+					<TableDialogAdd table={title} close={close} />
+				</Modal>
+			) : null}
 		</div>
 	)
 }
