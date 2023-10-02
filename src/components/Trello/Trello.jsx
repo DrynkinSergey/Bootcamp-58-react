@@ -1,14 +1,12 @@
 import React from 'react'
 import { List } from '../List/List'
+import { useSelector } from 'react-redux'
+import { selectTables } from '../../redux/tables/selectors'
+import { selectTableData } from '../../redux/table/selectors'
 
 export const Trello = () => {
-	const data = [
-		{ id: 1, title: 'Buy new car', table: 'todo' },
-		{ id: 2, title: 'Feed the fish', table: 'done' },
-		{ id: 3, title: 'Learn react', table: 'done' },
-		{ id: 4, title: 'Redux', table: 'todo' },
-		{ id: 5, title: 'Js', table: 'done' },
-	]
+	const { tables } = useSelector(selectTables)
+	const data = useSelector(selectTableData)
 	const getData = key => {
 		return data.filter(task => task.table === key)
 	}
@@ -16,9 +14,9 @@ export const Trello = () => {
 		<div>
 			<h1>Welcome to Trello analog!</h1>
 			<div className='flex gap-10 max-w-7xl mx-auto my-5'>
-				<List data={getData('todo')} title='todo' />
-				<List data={getData('inProgress')} title='inProgress' />
-				<List data={getData('done')} title='done' />
+				{tables.map(table => (
+					<List key={table} data={getData(table)} title={table} />
+				))}
 			</div>
 		</div>
 	)

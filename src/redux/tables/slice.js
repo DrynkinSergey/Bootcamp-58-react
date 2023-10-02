@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const slice = createSlice({
 	name: 'tables',
 	initialState: {
-		tables: ['todo', 'inProgress', 'done'],
+		tables: ['todo', 'inProgress', 'done', 'test'],
 	},
 	reducers: {},
 })
