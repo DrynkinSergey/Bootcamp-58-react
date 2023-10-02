@@ -12,7 +12,10 @@ const slice = createSlice({
 		deleteTable: (state, { payload }) => {
 			state.tables = state.tables.filter(table => table !== payload)
 		},
+		renameTable: (state, { payload }) => {
+			state.tables = state.tables.map(table => (table === payload.oldTable ? payload.newTable : table))
+		},
 	},
 })
 export const tablesReducer = slice.reducer
-export const { addTable, deleteTable } = slice.actions
+export const { addTable, deleteTable, renameTable } = slice.actions

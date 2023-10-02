@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { renameTable } from '../tables/slice'
 
 const slice = createSlice({
 	name: 'table',
@@ -18,8 +19,20 @@ const slice = createSlice({
 		addTask: (state, { payload }) => {
 			state.tableData.push(payload)
 		},
+		moveTo: (state, { payload }) => {
+			state.tableData = state.tableData.map(item =>
+				item.id === payload.taskId ? { ...item, table: payload.newTable } : item
+			)
+		},
+	},
+	extraReducers: builder => {
+		builder.addCase(renameTable, (state, { payload }) => {
+			state.tableData = state.tableData.map(item =>
+				item.table === payload.oldTable ? { ...item, table: payload.newTable } : item
+			)
+		})
 	},
 })
 
 export const tableReducer = slice.reducer
-export const { deleteTask, addTask } = slice.actions
+export const { deleteTask, moveTo, addTask } = slice.actions
