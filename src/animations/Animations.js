@@ -43,3 +43,24 @@ export const animateItems = {
 		scale: 0,
 	},
 }
+
+export const animateModal = {
+	visible: custom => ({
+		y: 0,
+		opacity: 1,
+		transition: {
+			duration: 0.4,
+		},
+	}),
+	hidden: {
+		y: 100,
+		opacity: 0,
+	},
+	exit: {
+		opacity: 0,
+		scale: 0,
+		transition: {
+			duration: 1,
+		},
+	},
+}

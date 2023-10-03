@@ -1,4 +1,3 @@
-import React, { useContext } from 'react'
 import { List } from '../List/List'
 import { useSelector } from 'react-redux'
 import { selectTables } from '../../redux/tables/selectors'
@@ -6,15 +5,18 @@ import { selectTableData } from '../../redux/table/selectors'
 import { Modal } from '../Modal/Modal'
 import { TableDialog } from '../TableDialog/TableDialog'
 import { AnimatePresence, motion } from 'framer-motion'
-import useMyContext from '../../hooks/useMyContext'
 import { animateFromDirection } from '../../animations/Animations'
+import useModal from '../../hooks/useModal'
 
 export const Trello = () => {
 	const { tables } = useSelector(selectTables)
-	const { isOpen, close, open } = useMyContext()
+	const { isOpen, close, open, modalOptions, modalType } = useModal()
 	const data = useSelector(selectTableData)
 	const getData = key => {
 		return data.filter(task => task.table === key)
+	}
+	const currentModalView = {
+		[modalOptions.newTable]: <TableDialog close={close} />,
 	}
 	return (
 		<div className='px-4'>
@@ -33,7 +35,7 @@ export const Trello = () => {
 					initial='hidden'
 					variants={animateFromDirection}
 					className='border-2 border-black px-8 py-2'
-					onClick={open}
+					onClick={() => open(modalOptions.newTable)}
 				>
 					Add new table!
 				</motion.button>
@@ -46,9 +48,11 @@ export const Trello = () => {
 				</AnimatePresence>
 
 				{isOpen ? (
-					<Modal title='Add table' close={close}>
-						<TableDialog close={close} />
-					</Modal>
+					<AnimatePresence>
+						<Modal title={modalType} close={close}>
+							{currentModalView[modalType]}
+						</Modal>
+					</AnimatePresence>
 				) : null}
 			</div>
 		</div>

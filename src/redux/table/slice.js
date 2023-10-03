@@ -19,6 +19,9 @@ const slice = createSlice({
 		addTask: (state, { payload }) => {
 			state.tableData.push(payload)
 		},
+		editTask: (state, { payload }) => {
+			state.tableData = state.tableData.map(task => (task.id === payload.id ? payload.data : task))
+		},
 		moveTo: (state, { payload }) => {
 			state.tableData = state.tableData.map(item =>
 				item.id === payload.taskId ? { ...item, table: payload.newTable } : item
@@ -35,4 +38,4 @@ const slice = createSlice({
 })
 
 export const tableReducer = slice.reducer
-export const { deleteTask, moveTo, addTask } = slice.actions
+export const { deleteTask, moveTo, addTask, editTask } = slice.actions
