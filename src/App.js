@@ -17,7 +17,7 @@ const App = () => {
 	}, [dispatch])
 	return (
 		<div>
-			{isLoggedIn ? (
+			{true ? (
 				<>
 					<Header />
 					<Routes>

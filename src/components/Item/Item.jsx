@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { deleteTask, moveTo } from '../../redux/table/slice'
 import { toast } from 'react-toastify'
 import { selectTables } from '../../redux/tables/selectors'
-
-export const Item = ({ task }) => {
+import { animateFromBottom, animateFromDirection, animateItems } from '../../animations/Animations'
+import { motion } from 'framer-motion'
+export const Item = ({ task, idx }) => {
 	const { id, title, table } = task
 	const dispatch = useDispatch()
 	const [value, setValue] = useState('')
@@ -19,7 +20,13 @@ export const Item = ({ task }) => {
 	}
 
 	return (
-		<li className='flex items-center justify-between py-2 px-2 border-[1px] '>
+		<motion.li
+			whileInView='visible'
+			initial='hidden'
+			variants={animateItems}
+			exit='exit'
+			className='flex items-center justify-between py-2 px-2 border-[1px] '
+		>
 			<h2 className='capitalize'>{title}</h2>
 			<select value='' onChange={moveToTable}>
 				<option disabled value=''>
@@ -37,6 +44,6 @@ export const Item = ({ task }) => {
 			<button onClick={removeTask} className=' px-2 py-1'>
 				<BadgeX className='text-black hover:text-red-500' />
 			</button>
-		</li>
+		</motion.li>
 	)
 }

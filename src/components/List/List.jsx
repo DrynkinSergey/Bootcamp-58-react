@@ -7,8 +7,9 @@ import { Modal } from '../Modal/Modal'
 import { TableDialogAdd } from '../TableDialog/TableDialogAdd'
 import useModal from '../../hooks/useModal'
 import { TableDialogRename } from '../TableDialog/TableDialogRename'
-
-export const List = ({ data = [], title }) => {
+import { motion, AnimatePresence } from 'framer-motion'
+import { animateFromBottom } from '../../animations/Animations'
+export const List = ({ data = [], title, idx }) => {
 	const dispatch = useDispatch()
 	const { isOpen, open, close } = useModal()
 	const { isOpen: isOpenRename, toggle } = useModal()
@@ -16,7 +17,13 @@ export const List = ({ data = [], title }) => {
 		dispatch(deleteTable(title))
 	}
 	return (
-		<div className='border-2 border-black rounded-md min-w-[350px] min-h-[500px]'>
+		<motion.div
+			whileInView='visible'
+			initial='hidden'
+			custom={idx}
+			variants={animateFromBottom}
+			className='border-2 border-black rounded-md min-w-[350px] min-h-[500px]'
+		>
 			<div className='bg-teal-400 border-b-2 py-2 px-4 border-black flex justify-between'>
 				<h2 className='capitalize  font-bold text-2xl '>{title}</h2>
 				<div className='flex gap-4'>
@@ -31,9 +38,11 @@ export const List = ({ data = [], title }) => {
 
 			{data.length ? (
 				<ul>
-					{data.map(task => (
-						<Item key={task.id} task={task} />
-					))}
+					<AnimatePresence>
+						{data.map(task => (
+							<Item key={task.id} task={task} />
+						))}
+					</AnimatePresence>
 				</ul>
 			) : (
 				<h2 className='text-center py-8 text-teal-400 font-bold text-xl'>Empty table!</h2>
@@ -55,6 +64,6 @@ export const List = ({ data = [], title }) => {
 					<TableDialogRename table={title} close={toggle} />
 				</Modal>
 			) : null}
-		</div>
+		</motion.div>
 	)
 }
