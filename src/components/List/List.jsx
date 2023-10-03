@@ -16,8 +16,8 @@ export const List = ({ data = [], title }) => {
 		dispatch(deleteTable(title))
 	}
 	return (
-		<div className='border-2 border-black rounded-md w-[450px] min-h-[500px]'>
-			<div className=' border-b-2 py-2 px-4 border-black flex justify-between'>
+		<div className='border-2 border-black rounded-md min-w-[350px] min-h-[500px]'>
+			<div className='bg-teal-400 border-b-2 py-2 px-4 border-black flex justify-between'>
 				<h2 className='capitalize  font-bold text-2xl '>{title}</h2>
 				<div className='flex gap-4'>
 					<button onClick={toggle} className='hover:text-green-500'>

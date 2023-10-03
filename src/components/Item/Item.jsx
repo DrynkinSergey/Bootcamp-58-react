@@ -19,8 +19,8 @@ export const Item = ({ task }) => {
 	}
 
 	return (
-		<li className='flex justify-between py-2 px-2 border-[1px] '>
-			<h2>{title}</h2>
+		<li className='flex items-center justify-between py-2 px-2 border-[1px] '>
+			<h2 className='capitalize'>{title}</h2>
 			<select value='' onChange={moveToTable}>
 				<option disabled value=''>
 					Move to

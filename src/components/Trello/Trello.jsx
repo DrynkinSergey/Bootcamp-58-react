@@ -22,7 +22,7 @@ export const Trello = () => {
 					Add new table!
 				</button>
 			</header>
-			<div className='flex gap-10 max-w-7xl mx-auto my-5'>
+			<div className='flex gap-10 overflow-x-auto justify-between max-w-7xl mx-auto my-5 px-4'>
 				{tables.map(table => (
 					<List key={table} data={getData(table)} title={table} />
 				))}
