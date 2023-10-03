@@ -1,54 +1,27 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { login, logout, register } from '../redux/user/operations'
 import { NavLink } from 'react-router-dom'
-import { selectIsLoggedIn, selectUser } from '../redux/auth/selectors'
-import { logoutThunk } from '../redux/auth/operations'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectIsLoggedIn, selectUser } from '../redux/user/selectors'
 
-export const Header = () => {
-	const isLoggedIn = useSelector(selectIsLoggedIn)
-	const { name } = useSelector(selectUser)
+const Header = () => {
 	const dispatch = useDispatch()
-	const handleLogout = () => {
-		dispatch(logoutThunk())
-	}
+	const { name } = useSelector(selectUser)
 	return (
-		<header className='flex justify-between  gap-4 py-4 bg-teal-500 font-bold text-white px-10 text-xl'>
-			<nav className='flex  w-full gap-4 justify-between'>
-				<ul className='flex gap-4'>
-					<li>
-						<NavLink className='hover:text-red-500' to='/'>
-							Home
-						</NavLink>
-					</li>
-					<li>
-						<NavLink className='hover:text-red-500' to='/todos'>
-							Todos
-						</NavLink>
-					</li>
-				</ul>
-				{!isLoggedIn && (
-					<ul className='flex gap-4'>
-						<li>
-							<NavLink className='hover:text-red-500' to='/login'>
-								Login
-							</NavLink>
-						</li>
-						<li>
-							<NavLink className='hover:text-red-500' to='/register'>
-								Register
-							</NavLink>
-						</li>
-					</ul>
-				)}
+		<header className='bg-teal-500'>
+			<nav className='py-2 px-5 flex justify-between gap-4 text-white text-xl font-bold'>
+				<div className='flex  gap-4'>
+					<NavLink to='/'>Home</NavLink>
+					<NavLink to='/about'>About</NavLink>
+					<NavLink to='/trello'>Trello</NavLink>
+				</div>
+				{/* <NavLink to='/login'>Login</NavLink> */}
+				<div className='flex  gap-4'>
+					<h2>{name}</h2> |<button onClick={() => dispatch(logout())}>Logout</button>
+				</div>
 			</nav>
-			{isLoggedIn && (
-				<>
-					<h2>{name}</h2>|
-					<button onClick={handleLogout} className='hover:text-red-500'>
-						Logout
-					</button>
-				</>
-			)}
 		</header>
 	)
 }
+
+export default Header

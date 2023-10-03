@@ -1,40 +1,40 @@
-import { Route, Routes } from 'react-router-dom'
-import { Home, Login, NotFound, Register, Todos } from './pages'
-import { Header } from './components/Header'
-import { PrivateRoute } from './components/Routes/PrivateRoute'
+import React, { useEffect } from 'react'
+import { Route, Routes, Navigate } from 'react-router'
+import Home from './pages/Home'
+import About from './pages/About'
+import { TrelloPage } from './pages/TrelloPage'
+import Login from './pages/Login'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
-import { refreshThunk } from './redux/auth/operations'
-import { selectIsRefresh } from './redux/auth/selectors'
-import { Triangle } from 'react-loader-spinner'
-import { Spinner } from './components/Spinner'
+import { refresh } from './redux/user/operations'
+import Header from './components/Header'
+import { selectIsLoggedIn, selectUser } from './redux/user/selectors'
 
 const App = () => {
 	const dispatch = useDispatch()
-	const isRefresh = useSelector(selectIsRefresh)
+	const isLoggedIn = useSelector(selectIsLoggedIn)
 	useEffect(() => {
-		dispatch(refreshThunk())
+		dispatch(refresh())
 	}, [dispatch])
-	return isRefresh ? (
-		<Spinner />
-	) : (
-		<>
-			<Header />
-			<Routes>
-				<Route path='/' element={<Home />} />
-				<Route
-					path='/todos'
-					element={
-						<PrivateRoute>
-							<Todos />
-						</PrivateRoute>
-					}
-				/>
-				<Route path='/login' element={<Login />} />
-				<Route path='/register' element={<Register />} />
-				<Route path='*' element={<NotFound />} />
-			</Routes>
-		</>
+	return (
+		<div>
+			{true ? (
+				<>
+					<Header />
+					<Routes>
+						<Route path='/' element={<Home />} />
+						<Route path='/about' element={<About />} />
+						<Route path='/trello' element={<TrelloPage />} />
+						<Route path='*' element={<h1>Not found</h1>} />
+					</Routes>{' '}
+				</>
+			) : (
+				<Routes>
+					<Route path='/login' element={<Login />} />
+					<Route path='/register' element={<Login />} />
+					<Route path='*' element={<Navigate to='/login' />} />
+				</Routes>
+			)}
+		</div>
 	)
 }
 

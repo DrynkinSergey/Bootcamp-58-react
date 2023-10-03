@@ -1,46 +1,26 @@
-import { useEffect, useRef } from 'react'
-import { CloseButton, ModalContent, ModalWrapper } from './Modal.styled'
-
-const Modal = ({ children, close, title }) => {
-	const intervalID = useRef(null)
-
-	useEffect(() => {
-		const handleKeyDown = e => {
-			if (e.key === 'Escape') {
-				console.log('Escape')
-				close()
-			}
-		}
-		document.addEventListener('keydown', handleKeyDown)
-		document.body.style.overflow = 'hidden'
-		intervalID.current = setInterval(() => {
-			console.log(new Date().toLocaleTimeString())
-		}, 1000)
-
-		return () => {
-			document.removeEventListener('keydown', handleKeyDown)
-			clearInterval(intervalID.current)
-			document.body.style.overflow = 'auto'
-			console.log('Не закривай мене')
-		}
-	}, [close])
-	const onBackDropClick = e => {
-		if (e.currentTarget === e.target) {
-			close()
-		}
-	}
-	return (
-		<ModalWrapper onClick={onBackDropClick}>
-			<ModalContent>
-				<>
-					<h1>Modal</h1>
-					<hr />
-				</>
-				<CloseButton onClick={close}>×</CloseButton>
-				{children}
-			</ModalContent>
-		</ModalWrapper>
+import { XCircle } from 'lucide-react'
+import React from 'react'
+import { motion } from 'framer-motion'
+import { animateModal } from '../../animations/Animations'
+import ReactDOM from 'react-dom'
+const modalRoot = document.querySelector('#modalRoot')
+export const Modal = ({ children, title = 'Title', close, portal }) => {
+	return ReactDOM.createPortal(
+		<motion.div
+			variants={animateModal}
+			exit='exit'
+			className='inset-0 fixed flex justify-center items-center bg-black/30'
+		>
+			<motion.div whileInView='visible' initial='hidden' variants={animateModal} className='py-10 px-10 bg-white'>
+				<div className='flex justify-between px-5 py-2 border-b-2 border-black'>
+					<h2 className='text-xl'>{title}</h2>
+					<button onClick={close} className='hover:text-red-500'>
+						<XCircle />
+					</button>
+				</div>
+				<div>{children}</div>
+			</motion.div>
+		</motion.div>,
+		modalRoot
 	)
 }
-
-export default Modal

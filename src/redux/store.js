@@ -1,22 +1,36 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { todoReducer } from './todoList/slice'
-import { authReducer } from './auth/slice'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import { tablesReducer } from './tables/slice'
+import { tableReducer } from './table/slice'
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import { authReducer } from './user/slice'
 
 const persistConfig = {
 	key: 'root',
 	version: 1,
 	storage,
+}
+
+const persistConfigTable = {
+	key: 'root-table',
+	version: 1,
+	storage,
+}
+const persistConfigAuth = {
+	key: 'root-auth',
+	version: 1,
+	storage,
 	whitelist: ['token'],
 }
 
-const persistedReducer = persistReducer(persistConfig, authReducer)
+// const rootReducer = combineReducers({ tables: tablesReducer, table: tableReducer })
+// const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
 	reducer: {
-		todos: todoReducer,
-		auth: persistedReducer,
+		tables: persistReducer(persistConfig, tablesReducer),
+		table: persistReducer(persistConfigTable, tableReducer),
+		auth: persistReducer(persistConfigAuth, authReducer),
 	},
 	middleware: getDefaultMiddleware =>
 		getDefaultMiddleware({
@@ -24,6 +38,5 @@ export const store = configureStore({
 				ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
 			},
 		}),
-	devTools: process.env.NODE_ENV !== 'production',
 })
-export const persistor = persistStore(store)
+export let persistor = persistStore(store)
